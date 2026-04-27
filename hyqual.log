@@ -1,0 +1,446 @@
+
+[root@VM-0-4-tencentos hyqual_v3.0.3]# ./run 7
+HCU DEVICE NUMBER IS 8
+HCU CU NUMBER IS 80
+run peak
+dgemm[NT]: m, n, k, lda, ldb, ldc, stridea, strideb, stridec = 640, 128, 32, 640, 128, 640, 20480, 4096, 81920
+t = 0.00103265
+0.001033 ms, 32.493820 TOPS
+t = 0.001033
+0.001033 ms, 32.493870 TOPS
+t = 0.001033
+0.001033 ms, 32.493800 TOPS
+t = 0.001033
+0.001033 ms, 32.493732 TOPS
+t = 0.001033
+0.001033 ms, 32.492490 TOPS
+t = 0.001033
+0.001033 ms, 32.494237 TOPS
+t = 0.001033
+0.001033 ms, 32.494434 TOPS
+t = 0.001033
+0.001033 ms, 32.493903 TOPS
+t = 0.001033
+0.001033 ms, 32.489654 TOPS
+t = 0.001033
+0.001033 ms, 32.488253 TOPS
+t = 0.001033
+0.001033 ms, 32.487096 TOPS
+t = 0.001033
+0.001033 ms, 32.490092 TOPS
+t = 0.001033
+0.001033 ms, 32.489255 TOPS
+t = 0.001033
+0.001033 ms, 32.489814 TOPS
+t = 0.001033
+0.001033 ms, 32.489446 TOPS
+t = 0.001033
+0.001033 ms, 32.488824 TOPS
+t = 0.001033
+0.001033 ms, 32.494392 TOPS
+t = 0.001033
+0.001033 ms, 32.493862 TOPS
+t = 0.001033
+0.001033 ms, 32.494340 TOPS
+t = 0.001033
+0.001033 ms, 32.494028 TOPS
+t = 0.001033
+0.001033 ms, 32.493969 TOPS
+t = 0.001033
+0.001033 ms, 32.494308 TOPS
+t = 0.001033
+0.001033 ms, 32.494919 TOPS
+t = 0.001033
+0.001033 ms, 32.493841 TOPS
+--------------------------------------------------------------------------------
+HCU0: min: 32.489654    max: 32.494392  mean: 32.492622 stdev: 0.002112
+HCU1: min: 32.488253    max: 32.493870  mean: 32.491995 stdev: 0.002646
+HCU2: min: 32.487096    max: 32.494340  mean: 32.491745 stdev: 0.003295
+HCU3: min: 32.490092    max: 32.494028  mean: 32.492617 stdev: 0.001789
+HCU4: min: 32.489255    max: 32.493969  mean: 32.491904 stdev: 0.001969
+HCU5: min: 32.489814    max: 32.494308  mean: 32.492786 stdev: 0.002102
+HCU6: min: 32.489446    max: 32.494919  mean: 32.492933 stdev: 0.002474
+HCU7: min: 32.488824    max: 32.493903  mean: 32.492189 stdev: 0.002380
+HCU DEVICE NUMBER IS 8
+HCU CU NUMBER IS 80
+run peak
+sgemm[NT]: m, n, k, lda, ldb, ldc, stridea, strideb, stridec = 640, 128, 32, 640, 128, 640, 20480, 4096, 81920
+t = 0.00103257
+0.001033 ms, 64.992665 TOPS
+t = 0.001033
+0.001033 ms, 64.992395 TOPS
+t = 0.001033
+0.001033 ms, 64.982375 TOPS
+t = 0.001033
+0.001033 ms, 64.992653 TOPS
+t = 0.001033
+0.001033 ms, 64.993175 TOPS
+t = 0.001033
+0.001033 ms, 64.992865 TOPS
+t = 0.001033
+0.001033 ms, 64.993066 TOPS
+t = 0.001033
+0.001033 ms, 64.992697 TOPS
+t = 0.001033
+0.001033 ms, 64.980870 TOPS
+t = 0.001033
+0.001033 ms, 64.982667 TOPS
+t = 0.001033
+0.001033 ms, 64.981339 TOPS
+t = 0.001033
+0.001033 ms, 64.982956 TOPS
+t = 0.001033
+0.001033 ms, 64.974826 TOPS
+t = 0.001033
+0.001033 ms, 64.982809 TOPS
+t = 0.001033
+0.001033 ms, 64.982599 TOPS
+t = 0.001033
+0.001033 ms, 64.981646 TOPS
+t = 0.001033
+0.001033 ms, 64.992529 TOPS
+t = 0.001033
+0.001033 ms, 64.992794 TOPS
+t = 0.001033
+0.001033 ms, 64.992699 TOPS
+t = 0.001033
+0.001033 ms, 64.992307 TOPS
+t = 0.001033
+0.001033 ms, 64.992426 TOPS
+t = 0.001033
+0.001033 ms, 64.992953 TOPS
+t = 0.001033
+0.001033 ms, 64.992531 TOPS
+t = 0.001033
+0.001033 ms, 64.992826 TOPS
+--------------------------------------------------------------------------------
+HCU0: min: 64.980870    max: 64.992665  mean: 64.988688 stdev: 0.005528
+HCU1: min: 64.982667    max: 64.992794  mean: 64.989285 stdev: 0.004683
+HCU2: min: 64.981339    max: 64.992699  mean: 64.985471 stdev: 0.005129
+HCU3: min: 64.982956    max: 64.992653  mean: 64.989305 stdev: 0.004492
+HCU4: min: 64.974826    max: 64.993175  mean: 64.986809 stdev: 0.008479
+HCU5: min: 64.982809    max: 64.992953  mean: 64.989542 stdev: 0.004761
+HCU6: min: 64.982599    max: 64.993066  mean: 64.989398 stdev: 0.004813
+HCU7: min: 64.981646    max: 64.992826  mean: 64.989056 stdev: 0.005240
+HCU DEVICE NUMBER IS 8
+HCU CU NUMBER IS 80
+run peak
+hgemm[NT]: m, n, k, lda, ldb, ldc, stridea, strideb, stridec = 640, 128, 32, 640, 128, 640, 20480, 4096, 81920
+t = 0.000266617
+0.000267 ms, 503.520244 TOPS
+t = 0.000267
+0.000267 ms, 503.518265 TOPS
+t = 0.000267
+0.000267 ms, 503.526590 TOPS
+t = 0.000267
+0.000267 ms, 503.526886 TOPS
+t = 0.000267
+0.000267 ms, 503.514415 TOPS
+t = 0.000267
+0.000267 ms, 503.152828 TOPS
+t = 0.000267
+0.000267 ms, 503.524729 TOPS
+t = 0.000267
+0.000267 ms, 503.521100 TOPS
+t = 0.000268
+0.000268 ms, 501.965885 TOPS
+t = 0.000268
+0.000268 ms, 502.216864 TOPS
+t = 0.000268
+0.000268 ms, 502.236812 TOPS
+t = 0.000268
+0.000268 ms, 502.127561 TOPS
+t = 0.000268
+0.000268 ms, 502.187073 TOPS
+t = 0.000267
+0.000267 ms, 502.407433 TOPS
+t = 0.000268
+0.000268 ms, 502.266610 TOPS
+t = 0.000268
+0.000268 ms, 502.177503 TOPS
+t = 0.000267
+0.000267 ms, 503.533235 TOPS
+t = 0.000267
+0.000267 ms, 503.523312 TOPS
+t = 0.000267
+0.000267 ms, 503.522827 TOPS
+t = 0.000267
+0.000267 ms, 503.534086 TOPS
+t = 0.000267
+0.000267 ms, 503.525469 TOPS
+t = 0.000267
+0.000267 ms, 503.519225 TOPS
+t = 0.000267
+0.000267 ms, 503.494801 TOPS
+t = 0.000267
+0.000267 ms, 503.525657 TOPS
+--------------------------------------------------------------------------------
+HCU0: min: 501.965885   max: 503.533235 mean: 503.006455        stdev: 0.735813
+HCU1: min: 502.216864   max: 503.523312 mean: 503.086147        stdev: 0.614679
+HCU2: min: 502.236812   max: 503.526590 mean: 503.095409        stdev: 0.607122
+HCU3: min: 502.127561   max: 503.534086 mean: 503.062844        stdev: 0.661352
+HCU4: min: 502.187073   max: 503.525469 mean: 503.075652        stdev: 0.628337
+HCU5: min: 502.407433   max: 503.519225 mean: 503.026495        stdev: 0.462594
+HCU6: min: 502.266610   max: 503.524729 mean: 503.095380        stdev: 0.586156
+HCU7: min: 502.177503   max: 503.525657 mean: 503.074753        stdev: 0.634454
+HCU DEVICE NUMBER IS 8
+HCU CU NUMBER IS 80
+run peak
+i8gemm[NT]: m, n, k, lda, ldb, ldc, stridea, strideb, stridec = 640, 128, 32, 640, 128, 640, 20480, 4096, 81920
+t = 0.000265725
+0.000266 ms, 1010.444780 TOPS
+t = 0.000266
+0.000266 ms, 1010.788510 TOPS
+t = 0.000266
+0.000266 ms, 1010.820568 TOPS
+t = 0.000266
+0.000266 ms, 1010.814295 TOPS
+t = 0.000266
+0.000266 ms, 1010.807484 TOPS
+t = 0.000266
+0.000266 ms, 1010.799367 TOPS
+t = 0.000266
+0.000266 ms, 1010.819797 TOPS
+t = 0.000266
+0.000266 ms, 1010.770220 TOPS
+t = 0.000267
+0.000267 ms, 1007.880585 TOPS
+t = 0.000267
+0.000267 ms, 1007.677249 TOPS
+t = 0.000267
+0.000267 ms, 1008.386100 TOPS
+t = 0.000267
+0.000267 ms, 1007.986965 TOPS
+t = 0.000267
+0.000267 ms, 1008.522200 TOPS
+t = 0.000267
+0.000267 ms, 1008.075942 TOPS
+t = 0.000267
+0.000267 ms, 1007.438026 TOPS
+t = 0.000267
+0.000267 ms, 1008.409005 TOPS
+t = 0.000266
+0.000266 ms, 1010.818454 TOPS
+t = 0.000266
+0.000266 ms, 1010.811256 TOPS
+t = 0.000266
+0.000266 ms, 1010.784437 TOPS
+t = 0.000266
+0.000266 ms, 1010.816169 TOPS
+t = 0.000266
+0.000266 ms, 1010.827855 TOPS
+t = 0.000266
+0.000266 ms, 1010.823837 TOPS
+t = 0.000266
+0.000266 ms, 1010.778729 TOPS
+t = 0.000266
+0.000266 ms, 1010.836654 TOPS
+--------------------------------------------------------------------------------
+HCU0: min: 1007.880585  max: 1010.818454        mean: 1009.714606       stdev: 1.305791
+HCU1: min: 1007.677249  max: 1010.811256        mean: 1009.759005       stdev: 1.472053
+HCU2: min: 1008.386100  max: 1010.820568        mean: 1009.997035       stdev: 1.139199
+HCU3: min: 1007.986965  max: 1010.816169        mean: 1009.872476       stdev: 1.333258
+HCU4: min: 1008.522200  max: 1010.827855        mean: 1010.052513       stdev: 1.082127
+HCU5: min: 1008.075942  max: 1010.823837        mean: 1009.899716       stdev: 1.289641
+HCU6: min: 1007.438026  max: 1010.819797        mean: 1009.678850       stdev: 1.584591
+HCU7: min: 1008.409005  max: 1010.836654        mean: 1010.005293       stdev: 1.129072
+HCU DEVICE NUMBER IS 8
+HCU CU NUMBER IS 80
+run peak
+bf16gemm[NT]: m, n, k, lda, ldb, ldc, stridea, strideb, stridec = 640, 128, 32, 640, 128, 640, 20480, 4096, 81920
+t = 0.000265605
+0.000266 ms, 505.414716 TOPS
+t = 0.000266
+0.000266 ms, 505.421734 TOPS
+t = 0.000266
+0.000266 ms, 505.359722 TOPS
+t = 0.000266
+0.000266 ms, 505.424472 TOPS
+t = 0.000266
+0.000266 ms, 505.430671 TOPS
+t = 0.000266
+0.000266 ms, 505.419074 TOPS
+t = 0.000266
+0.000266 ms, 505.414045 TOPS
+t = 0.000266
+0.000266 ms, 505.426180 TOPS
+t = 0.000267
+0.000267 ms, 504.197867 TOPS
+t = 0.000267
+0.000267 ms, 503.984941 TOPS
+t = 0.000267
+0.000267 ms, 504.058054 TOPS
+t = 0.000267
+0.000267 ms, 503.886157 TOPS
+t = 0.000267
+0.000267 ms, 504.232879 TOPS
+t = 0.000267
+0.000267 ms, 503.814423 TOPS
+t = 0.000267
+0.000267 ms, 504.068245 TOPS
+t = 0.000267
+0.000267 ms, 503.941439 TOPS
+t = 0.000266
+0.000266 ms, 505.418612 TOPS
+t = 0.000266
+0.000266 ms, 505.415712 TOPS
+t = 0.000266
+0.000266 ms, 505.427414 TOPS
+t = 0.000266
+0.000266 ms, 505.426522 TOPS
+t = 0.000266
+0.000266 ms, 505.424499 TOPS
+t = 0.000266
+0.000266 ms, 505.434774 TOPS
+t = 0.000266
+0.000266 ms, 505.144637 TOPS
+t = 0.000266
+0.000266 ms, 505.418374 TOPS
+--------------------------------------------------------------------------------
+HCU0: min: 504.197867   max: 505.418612 mean: 505.010398        stdev: 0.574549
+HCU1: min: 503.984941   max: 505.421734 mean: 504.940796        stdev: 0.675896
+HCU2: min: 504.058054   max: 505.427414 mean: 504.948397        stdev: 0.630174
+HCU3: min: 503.886157   max: 505.426522 mean: 504.912384        stdev: 0.725652
+HCU4: min: 504.232879   max: 505.430671 mean: 505.029350        stdev: 0.563195
+HCU5: min: 503.814423   max: 505.434774 mean: 504.889424        stdev: 0.760167
+HCU6: min: 504.068245   max: 505.414045 mean: 504.875642        stdev: 0.581414
+HCU7: min: 503.941439   max: 505.426180 mean: 504.928665        stdev: 0.698081
+HCU DEVICE NUMBER IS 8
+HCU CU NUMBER IS 80
+run peak
+tf32gemm[NT]: m, n, k, lda, ldb, ldc, stridea, strideb, stridec = 640, 128, 32, 640, 128, 640, 20480, 4096, 81920
+t = 0.000265612
+0.000266 ms, 252.704229 TOPS
+t = 0.000266
+0.000266 ms, 252.709507 TOPS
+t = 0.000266
+0.000266 ms, 252.703893 TOPS
+t = 0.000266
+0.000266 ms, 252.724169 TOPS
+t = 0.000266
+0.000266 ms, 252.726046 TOPS
+t = 0.000266
+0.000266 ms, 252.580141 TOPS
+t = 0.000266
+0.000266 ms, 252.720205 TOPS
+t = 0.000266
+0.000266 ms, 252.713716 TOPS
+t = 0.000267
+0.000267 ms, 251.938826 TOPS
+t = 0.000267
+0.000267 ms, 252.076649 TOPS
+t = 0.000267
+0.000267 ms, 251.949937 TOPS
+t = 0.000267
+0.000267 ms, 252.042453 TOPS
+t = 0.000267
+0.000267 ms, 252.035645 TOPS
+t = 0.000267
+0.000267 ms, 252.129104 TOPS
+t = 0.000267
+0.000267 ms, 252.045533 TOPS
+t = 0.000267
+0.000267 ms, 252.011744 TOPS
+t = 0.000266
+0.000266 ms, 252.712006 TOPS
+t = 0.000266
+0.000266 ms, 252.708644 TOPS
+t = 0.000266
+0.000266 ms, 252.718688 TOPS
+t = 0.000266
+0.000266 ms, 252.716212 TOPS
+t = 0.000266
+0.000266 ms, 252.713998 TOPS
+t = 0.000266
+0.000266 ms, 252.590174 TOPS
+t = 0.000266
+0.000266 ms, 252.715209 TOPS
+t = 0.000266
+0.000266 ms, 252.723181 TOPS
+--------------------------------------------------------------------------------
+HCU0: min: 251.938826   max: 252.712006 mean: 252.451687        stdev: 0.362661
+HCU1: min: 252.076649   max: 252.709507 mean: 252.498267        stdev: 0.298129
+HCU2: min: 251.949937   max: 252.718688 mean: 252.457506        stdev: 0.358957
+HCU3: min: 252.042453   max: 252.724169 mean: 252.494278        stdev: 0.319505
+HCU4: min: 252.035645   max: 252.726046 mean: 252.491896        stdev: 0.322656
+HCU5: min: 252.129104   max: 252.590174 mean: 252.433140        stdev: 0.215025
+HCU6: min: 252.045533   max: 252.720205 mean: 252.493649        stdev: 0.316873
+HCU7: min: 252.011744   max: 252.723181 mean: 252.482880        stdev: 0.333166
+
+--------------------------------------------------------------------------------
+Theoretical peak dgemm perf = 30.00 TFLOPS
+Peak min dgemm perf = 22.40 TFLOPS (gfx clk 1600 Mhz)
+Theoretical peak sgemm perf = 60.00 TFLOPS
+Peak min sgemm perf = 44.80 TFLOPS (gfx clk 1600 Mhz)
+Theoretical peak hgemm perf = 480.00 TFLOPS
+Peak min hgemm perf = 358.40 TFLOPS (gfx clk 1600 Mhz)
+Theoretical peak i8gemm perf = 960.00 TOPS
+Peak min i8gemm perf = 716.80 TOPS (gfx clk 1600 Mhz)
+Theoretical peak bf16gemm perf = 480.00 TFLOPS
+Peak min bf16gemm perf = 358.40 TFLOPS (gfx clk 1600 Mhz)
+Theoretical peak tf32gemm perf = 240.00 TFLOPS
+Peak min tf32gemm perf = 179.20 TFLOPS (gfx clk 1600 Mhz)
+
+DCU0 Peak Performance:
+        peak dgemm    : 32.49    TFLOPS  PASS
+        peak sgemm    : 64.99    TFLOPS  PASS
+        peak hgemm    : 503.53   TFLOPS  PASS
+        peak i8gemm   : 1010.82  TOPS    PASS
+        peak bf16gemm : 505.42   TFLOPS  PASS
+        peak tf32gemm : 252.71   TFLOPS  PASS
+
+DCU1 Peak Performance:
+        peak dgemm    : 32.49    TFLOPS  PASS
+        peak sgemm    : 64.99    TFLOPS  PASS
+        peak hgemm    : 503.52   TFLOPS  PASS
+        peak i8gemm   : 1010.81  TOPS    PASS
+        peak bf16gemm : 505.42   TFLOPS  PASS
+        peak tf32gemm : 252.71   TFLOPS  PASS
+
+DCU2 Peak Performance:
+        peak dgemm    : 32.49    TFLOPS  PASS
+        peak sgemm    : 64.99    TFLOPS  PASS
+        peak hgemm    : 503.53   TFLOPS  PASS
+        peak i8gemm   : 1010.82  TOPS    PASS
+        peak bf16gemm : 505.43   TFLOPS  PASS
+        peak tf32gemm : 252.72   TFLOPS  PASS
+
+DCU3 Peak Performance:
+        peak dgemm    : 32.49    TFLOPS  PASS
+        peak sgemm    : 64.99    TFLOPS  PASS
+        peak hgemm    : 503.53   TFLOPS  PASS
+        peak i8gemm   : 1010.82  TOPS    PASS
+        peak bf16gemm : 505.43   TFLOPS  PASS
+        peak tf32gemm : 252.72   TFLOPS  PASS
+
+DCU4 Peak Performance:
+        peak dgemm    : 32.49    TFLOPS  PASS
+        peak sgemm    : 64.99    TFLOPS  PASS
+        peak hgemm    : 503.53   TFLOPS  PASS
+        peak i8gemm   : 1010.83  TOPS    PASS
+        peak bf16gemm : 505.43   TFLOPS  PASS
+        peak tf32gemm : 252.73   TFLOPS  PASS
+
+DCU5 Peak Performance:
+        peak dgemm    : 32.49    TFLOPS  PASS
+        peak sgemm    : 64.99    TFLOPS  PASS
+        peak hgemm    : 503.52   TFLOPS  PASS
+        peak i8gemm   : 1010.82  TOPS    PASS
+        peak bf16gemm : 505.43   TFLOPS  PASS
+        peak tf32gemm : 252.59   TFLOPS  PASS
+
+DCU6 Peak Performance:
+        peak dgemm    : 32.49    TFLOPS  PASS
+        peak sgemm    : 64.99    TFLOPS  PASS
+        peak hgemm    : 503.52   TFLOPS  PASS
+        peak i8gemm   : 1010.82  TOPS    PASS
+        peak bf16gemm : 505.41   TFLOPS  PASS
+        peak tf32gemm : 252.72   TFLOPS  PASS
+
+DCU7 Peak Performance:
+        peak dgemm    : 32.49    TFLOPS  PASS
+        peak sgemm    : 64.99    TFLOPS  PASS
+        peak hgemm    : 503.53   TFLOPS  PASS
+        peak i8gemm   : 1010.84  TOPS    PASS
+        peak bf16gemm : 505.43   TFLOPS  PASS
+        peak tf32gemm : 252.72   TFLOPS  PASS

@@ -1,0 +1,227 @@
+
+[root@VM-0-4-tencentos ~]# wget https://taco-public-1251001002.cos.ap-shanghai.myqcloud.com/external/haiguang/rocm_bandwidth_test-c-3000-6.3-V1.2.0.zip
+--2026-04-27 15:49:56--  https://taco-public-1251001002.cos.ap-shanghai.myqcloud.com/external/haiguang/rocm_bandwidth_test-c-3000-6.3-V1.2.0.zip
+Resolving taco-public-1251001002.cos.ap-shanghai.myqcloud.com (taco-public-1251001002.cos.ap-shanghai.myqcloud.com)... 124.223.152.182, 124.223.152.187
+Connecting to taco-public-1251001002.cos.ap-shanghai.myqcloud.com (taco-public-1251001002.cos.ap-shanghai.myqcloud.com)|124.223.152.182|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 73970 (72K) [application/zip]
+Saving to: ‘rocm_bandwidth_test-c-3000-6.3-V1.2.0.zip’
+
+rocm_bandwidth_test-c-3000-6.3-V1.2.0.zip             100%[========================================================================================================================>]  72.24K  --.-KB/s    in 0.03s
+
+2026-04-27 15:49:56 (2.02 MB/s) - ‘rocm_bandwidth_test-c-3000-6.3-V1.2.0.zip’ saved [73970/73970]
+
+[root@VM-0-4-tencentos ~]# unzip rocm_bandwidth_test-c-3000-6.3-V1.2.0.zip
+Archive:  rocm_bandwidth_test-c-3000-6.3-V1.2.0.zip
+eb36f41e7f4d4549f6c42f0955d35ac08918ed3c
+   creating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/
+   creating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/.azuredevops/
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/.azuredevops/rocm-ci.yml
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/.clang-format
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/.clang-tidy
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/.clangd
+   creating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/.github/
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/.github/CODEOWNERS
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/.github/dependabot.yml
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/.gitignore
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/.pre-commit-config.yaml
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/.readthedocs.yaml
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/.update-clang-tidy.sh
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/CMakeLists.txt
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/LICENSE.txt
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/README.md
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/ROCmBandwithTest_UserGuide.pdf
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/base_test.cpp
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/base_test.hpp
+   creating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/cmake_modules/
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/cmake_modules/utils.cmake
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/common.cpp
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/common.hpp
+   creating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/
+ extracting: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/.gitignore
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/conf.py
+   creating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/how-to/
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/how-to/using_rocm_bandwidth_test.rst
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/index.rst
+   creating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/install/
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/install/install.rst
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/license.rst
+   creating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/reference/
+ extracting: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/reference/test.rst
+   creating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/sphinx/
+ extracting: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/sphinx/.gitignore
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/sphinx/_toc.yml.in
+ extracting: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/sphinx/requirements.in
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/docs/sphinx/requirements.txt
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/main.cpp
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/os.cpp
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/os.hpp
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/rocm_bandwidth_test.cpp
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/rocm_bandwidth_test.hpp
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/rocm_bandwidth_test_io.cpp
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/rocm_bandwidth_test_parse.cpp
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/rocm_bandwidth_test_print.cpp
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/rocm_bandwidth_test_report.cpp
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/rocm_bandwidth_test_topology.cpp
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/rocm_bandwidth_test_trans.cpp
+  inflating: rocm_bandwidth_test-c-3000-6.3-V1.2.0/rocm_bandwidth_test_validate.cpp
+[root@VM-0-4-tencentos ~]# cd rocm_bandwidth_test-c-3000-6.3-V1.2.0/
+[root@VM-0-4-tencentos rocm_bandwidth_test-c-3000-6.3-V1.2.0]# mkdir build
+[root@VM-0-4-tencentos rocm_bandwidth_test-c-3000-6.3-V1.2.0]# cd build/
+[root@VM-0-4-tencentos build]# cmake ../
+-- The C compiler identification is GNU 8.5.0
+-- The CXX compiler identification is GNU 8.5.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+hsa-runtime64 found @  /opt/hyhal/lib/cmake/hsa-runtime64
+
+----------------NBIT: 64
+-----------BuildType: release
+------------Compiler: /usr/bin/c++
+----Compiler-Version: 8.5.0
+-----CMAKE_CXX_FLAGS:  -std=c++11 -Wall -Werror -Werror=return-type -fPIC -fno-rtti -fexceptions -fno-math-errno -fms-extensions -fvisibility=hidden -fmerge-all-constants -fno-threadsafe-statics -m64  -msse -msse2
+---CMAKE_PREFIX_PATH:
+
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /root/rocm_bandwidth_test-c-3000-6.3-V1.2.0/build
+[root@VM-0-4-tencentos build]# make
+[  7%] Building CXX object CMakeFiles/rocm-bandwidth-test.dir/base_test.cpp.o
+[ 15%] Building CXX object CMakeFiles/rocm-bandwidth-test.dir/common.cpp.o
+[ 23%] Building CXX object CMakeFiles/rocm-bandwidth-test.dir/main.cpp.o
+[ 30%] Building CXX object CMakeFiles/rocm-bandwidth-test.dir/os.cpp.o
+[ 38%] Building CXX object CMakeFiles/rocm-bandwidth-test.dir/rocm_bandwidth_test.cpp.o
+[ 46%] Building CXX object CMakeFiles/rocm-bandwidth-test.dir/rocm_bandwidth_test_io.cpp.o
+[ 53%] Building CXX object CMakeFiles/rocm-bandwidth-test.dir/rocm_bandwidth_test_parse.cpp.o
+[ 61%] Building CXX object CMakeFiles/rocm-bandwidth-test.dir/rocm_bandwidth_test_print.cpp.o
+[ 69%] Building CXX object CMakeFiles/rocm-bandwidth-test.dir/rocm_bandwidth_test_report.cpp.o
+[ 76%] Building CXX object CMakeFiles/rocm-bandwidth-test.dir/rocm_bandwidth_test_topology.cpp.o
+[ 84%] Building CXX object CMakeFiles/rocm-bandwidth-test.dir/rocm_bandwidth_test_trans.cpp.o
+[ 92%] Building CXX object CMakeFiles/rocm-bandwidth-test.dir/rocm_bandwidth_test_validate.cpp.o
+[100%] Linking CXX executable rocm-bandwidth-test
+[100%] Built target rocm-bandwidth-test
+[root@VM-0-4-tencentos build]# source /opt/hyhal/env.sh
+[root@VM-0-4-tencentos build]# ./rocm-bandwidth-test
+................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+          RocmBandwidthTest Version: 2.6.0
+
+          Launch Command is: ./rocm-bandwidth-test (rocm_bandwidth -a + rocm_bandwidth -A)
+
+
+          Device: 0,  AMD EPYC 9K84 96-Core Processor
+          Device: 1,  AMD EPYC 9K84 96-Core Processor
+          Device: 2,  BW1000_H,  GPU-0014ba57a2e81941,  05:0.0
+          Device: 3,  BW1000_H,  GPU-0014b48e539210a1,  2b:0.0
+          Device: 4,  BW1000_H,  GPU-0014b48e538c3941,  14:0.0
+          Device: 5,  BW1000_H,  GPU-0014b48e53a82021,  1c:0.0
+          Device: 6,  BW1000_H,  GPU-0014b4ed40c82841,  86:0.0
+          Device: 7,  BW1000_H,  GPU-0014b48e5d443861,  b8:0.0
+          Device: 8,  BW1000_H,  GPU-0014b4ed41621901,  bf:0.0
+          Device: 9,  BW1000_H,  GPU-0014b4ed40143061,  9e:0.0
+
+          Inter-Device Access
+
+          D/D       0         1         2         3         4         5         6         7         8         9
+
+          0         1         1         1         1         1         1         1         1         1         1
+
+          1         1         1         1         1         1         1         1         1         1         1
+
+          2         1         1         1         1         1         1         1         1         1         1
+
+          3         1         1         1         1         1         1         1         1         1         1
+
+          4         1         1         1         1         1         1         1         1         1         1
+
+          5         1         1         1         1         1         1         1         1         1         1
+
+          6         1         1         1         1         1         1         1         1         1         1
+
+          7         1         1         1         1         1         1         1         1         1         1
+
+          8         1         1         1         1         1         1         1         1         1         1
+
+          9         1         1         1         1         1         1         1         1         1         1
+
+
+          Inter-Device Numa Distance
+
+          D/D       0         1         2         3         4         5         6         7         8         9
+
+          0         0         32        20        20        20        20        52        52        52        52
+
+          1         32        0         52        52        52        52        20        20        20        20
+
+          2         20        52        0         15        15        15        15        15        15        15
+
+          3         20        52        15        0         15        15        15        15        15        15
+
+          4         20        52        15        15        0         15        15        15        15        15
+
+          5         20        52        15        15        15        0         15        15        15        15
+
+          6         52        20        15        15        15        15        0         15        15        15
+
+          7         52        20        15        15        15        15        15        0         15        15
+
+          8         52        20        15        15        15        15        15        15        0         15
+
+          9         52        20        15        15        15        15        15        15        15        0
+
+
+          Unidirectional copy peak bandwidth GB/s
+
+          D/D       0           1           2           3           4           5           6           7           8           9
+
+          0         N/A         N/A         45.531      45.158      46.366      46.066      45.437      45.556      45.935      46.142
+
+          1         N/A         N/A         45.536      45.149      46.356      46.071      45.432      45.551      45.935      46.152
+
+          2         48.669      48.663      999.834     169.604     168.514     167.974     168.989     169.947     168.378     168.717
+
+          3         48.056      48.061      169.467     1002.223    168.785     168.446     169.398     170.223     168.243     168.921
+
+          4         49.420      49.420      169.535     170.154     1010.676    168.649     169.193     170.223     168.378     168.921
+
+          5         49.171      49.183      169.330     170.223     168.649     1005.828    169.262     169.947     168.446     168.446
+
+          6         48.579      48.596      167.437     167.504     167.037     166.309     951.089     167.974     166.639     167.170
+
+          7         48.686      48.686      168.108     168.446     167.438     166.639     167.705     947.865     166.904     167.037
+
+          8         49.062      49.056      168.311     168.853     167.437     166.904     168.176     168.989     947.865     167.906
+
+          9         49.223      49.217      168.176     168.243     167.772     166.573     167.773     168.446     167.370     948.938
+
+
+          Bidirectional copy peak bandwidth GB/s
+
+          D/D       0           1           2           3           4           5           6           7           8           9
+
+          0         N/A         N/A         75.478      74.872      76.413      76.094      75.485      75.587      75.929      76.094
+
+          1         N/A         N/A         75.716      75.573      76.212      76.170      76.177      76.336      76.629      76.889
+
+          2         75.478      75.716      N/A         313.358     313.706     313.125     313.134     313.242     156.656     313.425
+
+          3         74.872      75.573      313.358     N/A         313.125     313.476     313.430     313.476     313.476     313.411
+
+          4         76.413      76.212      313.706     313.125     N/A         312.891     312.903     313.049     313.243     313.095
+
+          5         76.094      76.170      313.125     313.476     312.891     N/A         313.008     313.242     313.125     313.432
+
+          6         75.485      76.177      313.134     313.430     312.903     313.008     N/A         313.602     313.945     313.459
+
+          7         75.587      76.336      313.242     313.476     313.049     313.242     313.602     N/A         313.359     313.467
+
+          8         75.929      76.629      156.656     313.476     313.243     313.125     313.945     313.359     N/A         313.008
+
+          9         76.094      76.889      313.425     313.411     313.095     313.432     313.459     313.467     313.008     N/A

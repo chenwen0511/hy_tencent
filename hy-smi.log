@@ -1,0 +1,311 @@
+[root@VM-0-4-tencentos ~]# hy-smi --showtopo
+bash: hy-smi: command not found...
+[root@VM-0-4-tencentos ~]# echo 'export PATH="/opt/hyhal/bin/:$PATH"' >> ~/.bashrc
+[root@VM-0-4-tencentos ~]# source ~/.bashrc
+[root@VM-0-4-tencentos ~]# hy-smi
+bash: hy-smi: command not found...
+[root@VM-0-4-tencentos ~]# ls /opt/
+containerd/         knem-1.1.4.90mlnx1/ mellanox/           rh/
+[root@VM-0-4-tencentos ~]#
+[root@VM-0-4-tencentos ~]#
+[root@VM-0-4-tencentos ~]# cd ~
+[root@VM-0-4-tencentos ~]# wget https://taco-public-1251001002.cos.ap-shanghai.myqcloud.com/external/haiguang/driver/rock-6.3.27-V1.2.5.run
+--2026-04-27 14:23:18--  https://taco-public-1251001002.cos.ap-shanghai.myqcloud.com/external/haiguang/driver/rock-6.3.27-V1.2.5.run
+Resolving taco-public-1251001002.cos.ap-shanghai.myqcloud.com (taco-public-1251001002.cos.ap-shanghai.myqcloud.com)... 124.223.152.187, 124.223.152.182
+Connecting to taco-public-1251001002.cos.ap-shanghai.myqcloud.com (taco-public-1251001002.cos.ap-shanghai.myqcloud.com)|124.223.152.187|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 106395394 (101M) [application/x-makeself]
+Saving to: ‘rock-6.3.27-V1.2.5.run’
+
+rock-6.3.27-V1.2.5.run                                100%[========================================================================================================================>] 101.47M  23.7MB/s    in 3.6s
+
+2026-04-27 14:23:22 (28.5 MB/s) - ‘rock-6.3.27-V1.2.5.run’ saved [106395394/106395394]
+
+[root@VM-0-4-tencentos ~]# yum install -y rpm-build gcc-c++ cmake automake elfutils-libelf-devel libdrm libdrm-devel mlocate python3.12 pciutils
+
+Last metadata expiration check: 2:22:46 ago on Mon 27 Apr 2026 12:00:51 PM CST.
+Package rpm-build-4.14.3-31.tl3.x86_64 is already installed.
+Package gcc-c++-8.5.0-23.tl3.1.x86_64 is already installed.
+Package automake-1.16.1-7.tl3.1.noarch is already installed.
+Package libdrm-2.4.115-2.tl3.1.x86_64 is already installed.
+Package pciutils-3.7.0-3.tl3.x86_64 is already installed.
+Dependencies resolved.
+=======================================================================================================================================================================================================================
+ Package                                                         Architecture                               Version                                                Repository                                     Size
+=======================================================================================================================================================================================================================
+Installing:
+ cmake                                                           x86_64                                     3.26.5-2.tl3                                           Updates                                        14 M
+ elfutils-libelf-devel                                           x86_64                                     0.190-2.tl3                                            Updates                                        61 k
+ libdrm-devel                                                    x86_64                                     2.4.115-2.tl3.1                                        Updates                                       183 k
+ mlocate                                                         x86_64                                     0.26-20.tl3                                            TencentOS                                     120 k
+ python3.12                                                      x86_64                                     3.12.8-1.tl3                                           Updates                                        29 k
+Installing dependencies:
+ cmake-data                                                      noarch                                     3.26.5-2.tl3                                           Updates                                       1.9 M
+ cmake-rpm-macros                                                noarch                                     3.26.5-2.tl3                                           Updates                                        43 k
+ libpciaccess-devel                                              x86_64                                     0.14-1.tl3                                             TencentOS                                      18 k
+ libuv                                                           x86_64                                     1:1.41.1-2.tl3                                         Updates                                       155 k
+ libzstd-devel                                                   x86_64                                     1.4.4-1.tl3                                            TencentOS                                      43 k
+ mpdecimal                                                       x86_64                                     2.5.1-6.tl3                                            Updates                                        94 k
+ python3.11                                                      x86_64                                     3.11.11-1.tl3                                          Updates                                        30 k
+ python3.11-libs                                                 x86_64                                     3.11.11-1.tl3                                          Updates                                        10 M
+ python3.11-pip-wheel                                            noarch                                     22.3.1-5.tl3                                           Updates                                       1.4 M
+ python3.11-setuptools-wheel                                     noarch                                     65.5.1-3.tl3                                           Updates                                       720 k
+ python3.12-libs                                                 x86_64                                     3.12.8-1.tl3                                           Updates                                        10 M
+ python3.12-pip-wheel                                            noarch                                     23.2.1-4.tl3                                           Updates                                       1.5 M
+ valgrind                                                        x86_64                                     1:3.22.0-2.tl3                                         Updates                                        11 M
+ valgrind-devel                                                  x86_64                                     1:3.22.0-2.tl3                                         Updates                                        94 k
+Installing weak dependencies:
+ python3.11-tkinter                                              x86_64                                     3.11.11-1.tl3                                          Updates                                       409 k
+ python3.12-tkinter                                              x86_64                                     3.12.8-1.tl3                                           Updates                                       401 k
+
+Transaction Summary
+=======================================================================================================================================================================================================================
+Install  21 Packages
+
+Total download size: 52 M
+Installed size: 173 M
+Downloading Packages:
+(1/21): libpciaccess-devel-0.14-1.tl3.x86_64.rpm                                                                                                                                       137 kB/s |  18 kB     00:00
+(2/21): libzstd-devel-1.4.4-1.tl3.x86_64.rpm                                                                                                                                           275 kB/s |  43 kB     00:00
+(3/21): mlocate-0.26-20.tl3.x86_64.rpm                                                                                                                                                 567 kB/s | 120 kB     00:00
+(4/21): cmake-rpm-macros-3.26.5-2.tl3.noarch.rpm                                                                                                                                       294 kB/s |  43 kB     00:00
+(5/21): elfutils-libelf-devel-0.190-2.tl3.x86_64.rpm                                                                                                                                   362 kB/s |  61 kB     00:00
+(6/21): cmake-data-3.26.5-2.tl3.noarch.rpm                                                                                                                                             4.3 MB/s | 1.9 MB     00:00
+(7/21): libdrm-devel-2.4.115-2.tl3.1.x86_64.rpm                                                                                                                                        722 kB/s | 183 kB     00:00
+(8/21): libuv-1.41.1-2.tl3.x86_64.rpm                                                                                                                                                  724 kB/s | 155 kB     00:00
+(9/21): cmake-3.26.5-2.tl3.x86_64.rpm                                                                                                                                                   18 MB/s |  14 MB     00:00
+(10/21): python3.11-3.11.11-1.tl3.x86_64.rpm                                                                                                                                           256 kB/s |  30 kB     00:00
+(11/21): mpdecimal-2.5.1-6.tl3.x86_64.rpm                                                                                                                                              535 kB/s |  94 kB     00:00
+(12/21): python3.11-setuptools-wheel-65.5.1-3.tl3.noarch.rpm                                                                                                                           2.5 MB/s | 720 kB     00:00
+(13/21): python3.11-pip-wheel-22.3.1-5.tl3.noarch.rpm                                                                                                                                  3.5 MB/s | 1.4 MB     00:00
+(14/21): python3.12-3.12.8-1.tl3.x86_64.rpm                                                                                                                                            231 kB/s |  29 kB     00:00
+(15/21): python3.11-tkinter-3.11.11-1.tl3.x86_64.rpm                                                                                                                                   1.6 MB/s | 409 kB     00:00
+(16/21): python3.11-libs-3.11.11-1.tl3.x86_64.rpm                                                                                                                                       15 MB/s |  10 MB     00:00
+(17/21): python3.12-pip-wheel-23.2.1-4.tl3.noarch.rpm                                                                                                                                  4.6 MB/s | 1.5 MB     00:00
+(18/21): python3.12-tkinter-3.12.8-1.tl3.x86_64.rpm                                                                                                                                    1.5 MB/s | 401 kB     00:00
+(19/21): valgrind-devel-3.22.0-2.tl3.x86_64.rpm                                                                                                                                        503 kB/s |  94 kB     00:00
+(20/21): python3.12-libs-3.12.8-1.tl3.x86_64.rpm                                                                                                                                        14 MB/s |  10 MB     00:00
+(21/21): valgrind-3.22.0-2.tl3.x86_64.rpm                                                                                                                                               18 MB/s |  11 MB     00:00
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                                                   21 MB/s |  52 MB     00:02
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                                                                                                                               1/1
+  Installing       : mpdecimal-2.5.1-6.tl3.x86_64                                                                                                                                                                 1/21
+  Installing       : cmake-rpm-macros-3.26.5-2.tl3.noarch                                                                                                                                                         2/21
+  Installing       : python3.12-pip-wheel-23.2.1-4.tl3.noarch                                                                                                                                                     3/21
+  Installing       : python3.12-tkinter-3.12.8-1.tl3.x86_64                                                                                                                                                       4/21
+  Installing       : python3.12-3.12.8-1.tl3.x86_64                                                                                                                                                               5/21
+  Running scriptlet: python3.12-3.12.8-1.tl3.x86_64                                                                                                                                                               5/21
+  Installing       : python3.12-libs-3.12.8-1.tl3.x86_64                                                                                                                                                          6/21
+  Installing       : python3.11-setuptools-wheel-65.5.1-3.tl3.noarch                                                                                                                                              7/21
+  Installing       : python3.11-pip-wheel-22.3.1-5.tl3.noarch                                                                                                                                                     8/21
+  Installing       : python3.11-tkinter-3.11.11-1.tl3.x86_64                                                                                                                                                      9/21
+  Installing       : python3.11-3.11.11-1.tl3.x86_64                                                                                                                                                             10/21
+  Running scriptlet: python3.11-3.11.11-1.tl3.x86_64                                                                                                                                                             10/21
+  Installing       : python3.11-libs-3.11.11-1.tl3.x86_64                                                                                                                                                        11/21
+  Installing       : valgrind-1:3.22.0-2.tl3.x86_64                                                                                                                                                              12/21
+  Installing       : valgrind-devel-1:3.22.0-2.tl3.x86_64                                                                                                                                                        13/21
+  Installing       : libuv-1:1.41.1-2.tl3.x86_64                                                                                                                                                                 14/21
+  Installing       : cmake-data-3.26.5-2.tl3.noarch                                                                                                                                                              15/21
+  Installing       : cmake-3.26.5-2.tl3.x86_64                                                                                                                                                                   16/21
+  Installing       : libzstd-devel-1.4.4-1.tl3.x86_64                                                                                                                                                            17/21
+  Installing       : libpciaccess-devel-0.14-1.tl3.x86_64                                                                                                                                                        18/21
+  Installing       : libdrm-devel-2.4.115-2.tl3.1.x86_64                                                                                                                                                         19/21
+  Installing       : elfutils-libelf-devel-0.190-2.tl3.x86_64                                                                                                                                                    20/21
+  Running scriptlet: mlocate-0.26-20.tl3.x86_64                                                                                                                                                                  21/21
+  Installing       : mlocate-0.26-20.tl3.x86_64                                                                                                                                                                  21/21
+  Running scriptlet: mlocate-0.26-20.tl3.x86_64                                                                                                                                                                  21/21
+  Verifying        : libpciaccess-devel-0.14-1.tl3.x86_64                                                                                                                                                         1/21
+  Verifying        : libzstd-devel-1.4.4-1.tl3.x86_64                                                                                                                                                             2/21
+  Verifying        : mlocate-0.26-20.tl3.x86_64                                                                                                                                                                   3/21
+  Verifying        : cmake-3.26.5-2.tl3.x86_64                                                                                                                                                                    4/21
+  Verifying        : cmake-data-3.26.5-2.tl3.noarch                                                                                                                                                               5/21
+  Verifying        : cmake-rpm-macros-3.26.5-2.tl3.noarch                                                                                                                                                         6/21
+  Verifying        : elfutils-libelf-devel-0.190-2.tl3.x86_64                                                                                                                                                     7/21
+  Verifying        : libdrm-devel-2.4.115-2.tl3.1.x86_64                                                                                                                                                          8/21
+  Verifying        : libuv-1:1.41.1-2.tl3.x86_64                                                                                                                                                                  9/21
+  Verifying        : mpdecimal-2.5.1-6.tl3.x86_64                                                                                                                                                                10/21
+  Verifying        : python3.11-3.11.11-1.tl3.x86_64                                                                                                                                                             11/21
+  Verifying        : python3.11-libs-3.11.11-1.tl3.x86_64                                                                                                                                                        12/21
+  Verifying        : python3.11-pip-wheel-22.3.1-5.tl3.noarch                                                                                                                                                    13/21
+  Verifying        : python3.11-setuptools-wheel-65.5.1-3.tl3.noarch                                                                                                                                             14/21
+  Verifying        : python3.11-tkinter-3.11.11-1.tl3.x86_64                                                                                                                                                     15/21
+  Verifying        : python3.12-3.12.8-1.tl3.x86_64                                                                                                                                                              16/21
+  Verifying        : python3.12-libs-3.12.8-1.tl3.x86_64                                                                                                                                                         17/21
+  Verifying        : python3.12-pip-wheel-23.2.1-4.tl3.noarch                                                                                                                                                    18/21
+  Verifying        : python3.12-tkinter-3.12.8-1.tl3.x86_64                                                                                                                                                      19/21
+  Verifying        : valgrind-1:3.22.0-2.tl3.x86_64                                                                                                                                                              20/21
+  Verifying        : valgrind-devel-1:3.22.0-2.tl3.x86_64                                                                                                                                                        21/21
+
+Installed:
+  cmake-3.26.5-2.tl3.x86_64              cmake-data-3.26.5-2.tl3.noarch         cmake-rpm-macros-3.26.5-2.tl3.noarch       elfutils-libelf-devel-0.190-2.tl3.x86_64          libdrm-devel-2.4.115-2.tl3.1.x86_64
+  libpciaccess-devel-0.14-1.tl3.x86_64   libuv-1:1.41.1-2.tl3.x86_64            libzstd-devel-1.4.4-1.tl3.x86_64           mlocate-0.26-20.tl3.x86_64                        mpdecimal-2.5.1-6.tl3.x86_64
+  python3.11-3.11.11-1.tl3.x86_64        python3.11-libs-3.11.11-1.tl3.x86_64   python3.11-pip-wheel-22.3.1-5.tl3.noarch   python3.11-setuptools-wheel-65.5.1-3.tl3.noarch   python3.11-tkinter-3.11.11-1.tl3.x86_64
+  python3.12-3.12.8-1.tl3.x86_64         python3.12-libs-3.12.8-1.tl3.x86_64    python3.12-pip-wheel-23.2.1-4.tl3.noarch   python3.12-tkinter-3.12.8-1.tl3.x86_64            valgrind-1:3.22.0-2.tl3.x86_64
+  valgrind-devel-1:3.22.0-2.tl3.x86_64
+
+Complete!
+[root@VM-0-4-tencentos ~]# yum install -y  kernel-devel-`uname -r` kernel-headers-`uname -r`
+Last metadata expiration check: 2:22:55 ago on Mon 27 Apr 2026 12:00:51 PM CST.
+No match for argument: kernel-devel-5.4.119-19.0009.56
+No match for argument: kernel-headers-5.4.119-19.0009.56
+Error: Unable to find a match: kernel-devel-5.4.119-19.0009.56 kernel-headers-5.4.119-19.0009.56
+[root@VM-0-4-tencentos ~]#
+[root@VM-0-4-tencentos ~]#
+[root@VM-0-4-tencentos ~]#
+[root@VM-0-4-tencentos ~]# ash rock-6.3.27-V1.2.5.run
+bash: ash: command not found...
+[root@VM-0-4-tencentos ~]# bash rock-6.3.27-V1.2.5.run
+
+|
+Install rock-6.3.27-1.2.5.rpm
+Prepare to install the kernel modules/firmware and hyhal ...
+Selected hlink type: OAM_7HSW_8HCU
+Hsw firmare is latest, no need upgrade.
+The old VBIOS state can't meet the current selected topology, and VBIOS must be reprogrammed.
+----------- Total 8 C-3000 HCU board ----------
+..
+Adapter_0 is BMZ HCU Card.
+Skip the VBIOS upgrade when the Lite VBIOS has already been burned to the flash memory!
+Adapter_1 is BMZ HCU Card.
+Skip the VBIOS upgrade when the Lite VBIOS has already been burned to the flash memory!
+Adapter_2 is BMZ HCU Card.
+Skip the VBIOS upgrade when the Lite VBIOS has already been burned to the flash memory!
+Adapter_3 is BMZ HCU Card.
+Skip the VBIOS upgrade when the Lite VBIOS has already been burned to the flash memory!
+Adapter_4 is BMZ HCU Card.
+Skip the VBIOS upgrade when the Lite VBIOS has already been burned to the flash memory!
+Adapter_5 is BMZ HCU Card.
+Skip the VBIOS upgrade when the Lite VBIOS has already been burned to the flash memory!
+Adapter_6 is BMZ HCU Card.
+Skip the VBIOS upgrade when the Lite VBIOS has already been burned to the flash memory!
+Adapter_7 is BMZ HCU Card.
+Skip the VBIOS upgrade when the Lite VBIOS has already been burned to the flash memory!
+Driver is loading, please waiting ...
+Establish link timeout time: 300 seconds remaining
+HCU online 8, total num 8
+Install successful. Enjoy now!
+[root@VM-0-4-tencentos ~]#
+[root@VM-0-4-tencentos ~]#
+[root@VM-0-4-tencentos ~]# ls /opt/hyhal/
+asic_bin/ bin/      bitcode/  dkms/     env.sh    firmware/ hsa/      include/  .info/    lib/      libexec/  share/
+[root@VM-0-4-tencentos ~]# ls /opt/hyhal/
+asic_bin/ bin/      bitcode/  dkms/     env.sh    firmware/ hsa/      include/  .info/    lib/      libexec/  share/
+[root@VM-0-4-tencentos ~]# ls /opt/hyhal/^C
+[root@VM-0-4-tencentos ~]# source ~/.bashrc
+[root@VM-0-4-tencentos ~]#
+[root@VM-0-4-tencentos ~]# hy-smi
+
+================================= System Management Interface ==================================
+================================================================================================
+HCU     Temp     AvgPwr     Perf     PwrCap     VRAM%      HCU%      Dec%      Enc%      Mode
+0       34.0C    97.0W      auto     800.0W     0%         0.0%      0.0%      0.0%      Normal
+1       31.0C    93.0W      auto     800.0W     0%         0.0%      0.0%      0.0%      Normal
+2       34.0C    99.0W      auto     800.0W     0%         0.0%      0.0%      0.0%      Normal
+3       35.0C    95.0W      auto     800.0W     0%         0.0%      0.0%      0.0%      Normal
+4       32.0C    93.0W      auto     800.0W     0%         0.0%      0.0%      0.0%      Normal
+5       31.0C    93.0W      auto     800.0W     0%         0.0%      0.0%      0.0%      Normal
+6       35.0C    100.0W     auto     800.0W     0%         0.0%      0.0%      0.0%      Normal
+7       36.0C    98.0W      auto     800.0W     0%         0.0%      0.0%      0.0%      Normal
+================================================================================================
+======================================== End of SMI Log ========================================
+
+[root@VM-0-4-tencentos ~]# hy-smi --showtopo
+
+================================= System Management Interface ==================================
+================================================================================================
+Link accessible between HCUs
+          HCU[0]    HCU[1]    HCU[2]    HCU[3]    HCU[4]    HCU[5]    HCU[6]    HCU[7]
+HCU[0]    TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE
+HCU[1]    TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE
+HCU[2]    TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE
+HCU[3]    TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE
+HCU[4]    TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE
+HCU[5]    TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE
+HCU[6]    TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE
+HCU[7]    TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE      TRUE
+================================================================================================
+================================================================================================
+Weight between HCUs
+          HCU[0]    HCU[1]    HCU[2]    HCU[3]    HCU[4]    HCU[5]    HCU[6]    HCU[7]
+HCU[0]    0         0         0         0         0         0         0         0
+HCU[1]    0         0         0         0         0         0         0         0
+HCU[2]    0         0         0         0         0         0         0         0
+HCU[3]    0         0         0         0         0         0         0         0
+HCU[4]    0         0         0         0         0         0         0         0
+HCU[5]    0         0         0         0         0         0         0         0
+HCU[6]    0         0         0         0         0         0         0         0
+HCU[7]    0         0         0         0         0         0         0         0
+================================================================================================
+================================================================================================
+Hops between HCUs
+          HCU[0]    HCU[1]    HCU[2]    HCU[3]    HCU[4]    HCU[5]    HCU[6]    HCU[7]
+HCU[0]    0         1         1         1         1         1         1         1
+HCU[1]    1         0         1         1         1         1         1         1
+HCU[2]    1         1         0         1         1         1         1         1
+HCU[3]    1         1         1         0         1         1         1         1
+HCU[4]    1         1         1         1         0         1         1         1
+HCU[5]    1         1         1         1         1         0         1         1
+HCU[6]    1         1         1         1         1         1         0         1
+HCU[7]    1         1         1         1         1         1         1         0
+================================================================================================
+================================================================================================
+Link Type between HCUs
+          HCU[0]    HCU[1]    HCU[2]    HCU[3]    HCU[4]    HCU[5]    HCU[6]    HCU[7]
+HCU[0]    None      HSW       HSW       HSW       HSW       HSW       HSW       HSW
+HCU[1]    HSW       None      HSW       HSW       HSW       HSW       HSW       HSW
+HCU[2]    HSW       HSW       None      HSW       HSW       HSW       HSW       HSW
+HCU[3]    HSW       HSW       HSW       None      HSW       HSW       HSW       HSW
+HCU[4]    HSW       HSW       HSW       HSW       None      HSW       HSW       HSW
+HCU[5]    HSW       HSW       HSW       HSW       HSW       None      HSW       HSW
+HCU[6]    HSW       HSW       HSW       HSW       HSW       HSW       None      HSW
+HCU[7]    HSW       HSW       HSW       HSW       HSW       HSW       HSW       None
+================================================================================================
+================================================================================================
+HCU[0]          : (Topology) Numa Node 0
+HCU[0]          : (Topology) Numa Affinity 0
+HCU[1]          : (Topology) Numa Node 0
+HCU[1]          : (Topology) Numa Affinity 0
+HCU[2]          : (Topology) Numa Node 0
+HCU[2]          : (Topology) Numa Affinity 0
+HCU[3]          : (Topology) Numa Node 0
+HCU[3]          : (Topology) Numa Affinity 0
+HCU[4]          : (Topology) Numa Node 1
+HCU[4]          : (Topology) Numa Affinity 1
+HCU[5]          : (Topology) Numa Node 1
+HCU[5]          : (Topology) Numa Affinity 1
+HCU[6]          : (Topology) Numa Node 1
+HCU[6]          : (Topology) Numa Affinity 1
+HCU[7]          : (Topology) Numa Node 1
+HCU[7]          : (Topology) Numa Affinity 1
+================================================================================================
+======================================== End of SMI Log ========================================
+
+[root@VM-0-4-tencentos ~]# history |grep tail -20
+   34  history |grep tail -20
+[root@VM-0-4-tencentos ~]# history |tail -20
+   16  nvidia-ctk runtime configure --runtime=docker
+   17  systemctl status docker
+   18  clear
+   19  ibdev2netdev
+   20  hy-smi
+   21  hy-smi --showtopo
+   22  echo 'export PATH="/opt/hyhal/bin/:$PATH"' >> ~/.bashrc
+   23  source ~/.bashrc
+   24  hy-smi
+   25  cd ~
+   26  wget https://taco-public-1251001002.cos.ap-shanghai.myqcloud.com/external/haiguang/driver/rock-6.3.27-V1.2.5.run
+   27  yum install -y rpm-build gcc-c++ cmake automake elfutils-libelf-devel libdrm libdrm-devel mlocate python3.12 pciutils
+   28  yum install -y  kernel-devel-`uname -r` kernel-headers-`uname -r`
+   29  ash rock-6.3.27-V1.2.5.run
+   30  bash rock-6.3.27-V1.2.5.run
+   31  source ~/.bashrc
+   32  hy-smi
+   33  hy-smi --showtopo
+   34  history |grep tail -20
+   35  history |tail -20
+[root@VM-0-4-tencentos ~]#
