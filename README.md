@@ -520,86 +520,16 @@ PY
 - 图像输入 + 中文指令输入的多模态推理链路已跑通；
 - 生成结果语义正确，具备继续接入服务化（如 vLLM/OpenAI API 兼容层）的基础条件。
 
-## 18. 升级 vLLM 以支持 Qwen3-VL（推荐方案）
+## 18. vLLM 测试 Qwen3-VL-4B 说明
 
-本节用于修复如下报错：
+在当前环境中，镜像内 `vllm` 版本为 `0.9.2`。实际测试 `Qwen3-VL-4B-Instruct` 服务化启动时，出现如下报错：
 
 `Value error, limit_mm_per_prompt is only supported for multimodal models.`
 
-该报错说明当前 vLLM 版本未将 `Qwen3-VL-4B-Instruct` 正确识别为多模态模型，建议升级到更新版本后再启动服务。
+该现象说明当前版本的 `vllm` 未能将 `Qwen3-VL-4B-Instruct` 正确识别为多模态模型，因此暂时无法基于现有镜像完成 Qwen3-VL 的服务化部署。
 
-### 18.1 升级前确认当前版本
+结论：
 
-```bash
-python -c "import vllm; print(vllm.__version__)"
-pip show vllm
-```
-
-若显示为 `0.9.2`，建议执行升级。
-
-### 18.2 升级 vLLM（容器内）
-
-```bash
-pip uninstall -y vllm
-pip install -U vllm
-python -c "import vllm; print(vllm.__version__)"
-```
-
-说明：
-
-- 需在当前推理容器内执行；
-- 以 `pip install -U vllm` 拉取最新可用版本；
-- 升级后重新确认版本号，再进行服务启动。
-
-### 18.3 重新启动服务（Qwen3-VL）
-
-```bash
-model_path=/data0/models/Qwen3-VL-4B-Instruct
-port=8089
-tp=4
-logdir=/data0/logs
-mkdir -p "${logdir}"
-
-vllm serve "${model_path}" \
-  --host 0.0.0.0 \
-  --port "${port}" \
-  --dtype float16 \
-  --tensor-parallel-size "${tp}" \
-  --trust-remote-code \
-  --max-num-seqs 1024 \
-  --max-seq-len-to-capture 40960 \
-  --distributed-executor-backend mp \
-  --enable-prefix-caching \
-  --enable-chunked-prefill \
-  --limit-mm-per-prompt '{"image":4}' \
-  2>&1 | tee "${logdir}/qwen3-vl-4b-server.log"
-```
-
-注意：
-
-- 若仍提示非多模态模型，可先临时移除 `--limit-mm-per-prompt`，优先确认服务基础可启动；
-- 仅当日志明确识别多模态能力后，再加回该参数做图片并发限制。
-
-### 18.4 OpenAI 兼容接口快速验证（图像输入）
-
-服务启动后，使用以下命令验证多模态问答链路：
-
-```bash
-curl http://127.0.0.1:8089/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "/data0/models/Qwen3-VL-4B-Instruct",
-    "messages": [
-      {
-        "role": "user",
-        "content": [
-          {"type":"text","text":"请描述这张图的主要内容。"},
-          {"type":"image_url","image_url":{"url":"https://modelscope.oss-cn-beijing.aliyuncs.com/resource/qwen.png"}}
-        ]
-      }
-    ],
-    "max_tokens": 128
-  }'
-```
-
-返回中若包含对图片内容的中文描述，说明 vLLM 多模态服务已可用。
+- `transformers` 路线的本地多模态推理已验证通过；
+- 当前镜像内 `vllm 0.9.2` 版本过低，暂不具备稳定支持 `Qwen3-VL-4B-Instruct` 的条件；
+- 如需继续推进服务化，需等待明确支持 `Qwen3-VL` 的适配镜像或更高版本的 `vllm` 方案。
