@@ -24,9 +24,9 @@
 
 错误方式（不要这么做）：
 
-- 在主节点同一个容器里先后执行：
-  - `bash start_qwen3.sh 8B 172.21.0.4 2 0`
-  - `bash start_qwen3.sh 8B 172.21.0.4 2 1`
+在主节点同一个容器里先后执行：
+- `bash start_qwen3.sh 8B 172.21.0.4 2 0`
+- `bash start_qwen3.sh 8B 172.21.0.4 2 1`
 
 原因：
 
