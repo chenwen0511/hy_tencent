@@ -1,0 +1,314 @@
+server:
+
+[root@VM-0-4-tencentos hyqual_v3.0.3]#
+[root@VM-0-4-tencentos hyqual_v3.0.3]# wget -c https://taco-public-1251001002.cos.ap-shanghai.myqcloud.com/external/haiguang/driver/perf_hash_sport_bin.tgz
+--2026-04-27 16:21:27--  https://taco-public-1251001002.cos.ap-shanghai.myqcloud.com/external/haiguang/driver/perf_hash_sport_bin.tgz
+Resolving taco-public-1251001002.cos.ap-shanghai.myqcloud.com (taco-public-1251001002.cos.ap-shanghai.myqcloud.com)... 124.223.152.187, 124.223.152.182
+Connecting to taco-public-1251001002.cos.ap-shanghai.myqcloud.com (taco-public-1251001002.cos.ap-shanghai.myqcloud.com)|124.223.152.187|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2952424 (2.8M) [application/octet-stream]
+Saving to: ‘perf_hash_sport_bin.tgz’
+
+perf_hash_sport_bin.tgz                               100%[========================================================================================================================>]   2.82M  18.6MB/s    in 0.2s
+
+2026-04-27 16:21:28 (18.6 MB/s) - ‘perf_hash_sport_bin.tgz’ saved [2952424/2952424]
+
+[root@VM-0-4-tencentos hyqual_v3.0.3]# tar -zxvf perf_hash_sport_bin.tgz
+perf_hash_sport_bin/
+perf_hash_sport_bin/ib_read_bw
+perf_hash_sport_bin/ib_send_lat
+perf_hash_sport_bin/ib_atomic_lat
+perf_hash_sport_bin/ib_send_bw
+perf_hash_sport_bin/ib_atomic_bw
+perf_hash_sport_bin/ib_read_lat
+perf_hash_sport_bin/ib_write_lat
+perf_hash_sport_bin/ib_write_bw
+[root@VM-0-4-tencentos hyqual_v3.0.3]# cd perf_hash_sport_bin/
+[root@VM-0-4-tencentos perf_hash_sport_bin]# numactl --cpunodebind=0 --membind=0 ./ib_write_bw -d mlx5_bond_0 -x 3 -F --report_gbits -p 18500  -q 16 --run_infinitely
+
+************************************
+* Waiting for client to connect... *
+************************************
+^C
+[root@VM-0-4-tencentos perf_hash_sport_bin]# pwd
+/root/rocm_bandwidth_test-c-3000-6.3-V1.2.0/build/hyqual_v3.0.3/perf_hash_sport_bin
+[root@VM-0-4-tencentos perf_hash_sport_bin]#
+[root@VM-0-4-tencentos perf_hash_sport_bin]# numactl --cpunodebind=0 --membind=0 ./ib_write_bw -d mlx5_bond_0 -x 3 -F --report_gbits -p 18500  -q 16 --run_infinitely
+
+************************************
+* Waiting for client to connect... *
+************************************
+---------------------------------------------------------------------------------------
+                    RDMA_Write BW Test
+ Dual-port       : OFF          Device         : mlx5_bond_0
+ Number of qps   : 16           Transport type : IB
+ Connection type : RC           Using SRQ      : OFF
+ PCIe relax order: ON
+ ibv_wr* API     : ON
+ CQ Moderation   : 1
+ Mtu             : 4096[B]
+ Link type       : Ethernet
+ GID index       : 3
+ Max inline data : 0[B]
+ rdma_cm QPs     : OFF
+ Data ex. method : Ethernet
+---------------------------------------------------------------------------------------
+qp index 0 , sport 60000
+failed to change qp 0 source port
+failed to change qp 0 egress port
+qp index 1 , sport 60051
+failed to change qp 1 source port
+failed to change qp 1 egress port
+qp index 2 , sport 57663
+failed to change qp 2 source port
+failed to change qp 2 egress port
+qp index 3 , sport 57804
+failed to change qp 3 source port
+failed to change qp 3 egress port
+qp index 4 , sport 60000
+failed to change qp 4 source port
+failed to change qp 4 egress port
+qp index 5 , sport 60051
+failed to change qp 5 source port
+failed to change qp 5 egress port
+qp index 6 , sport 57663
+failed to change qp 6 source port
+failed to change qp 6 egress port
+qp index 7 , sport 57804
+failed to change qp 7 source port
+failed to change qp 7 egress port
+qp index 8 , sport 60000
+failed to change qp 8 source port
+failed to change qp 8 egress port
+qp index 9 , sport 60051
+failed to change qp 9 source port
+failed to change qp 9 egress port
+qp index 10 , sport 57663
+failed to change qp 10 source port
+failed to change qp 10 egress port
+qp index 11 , sport 57804
+failed to change qp 11 source port
+failed to change qp 11 egress port
+qp index 12 , sport 60000
+failed to change qp 12 source port
+failed to change qp 12 egress port
+qp index 13 , sport 60051
+failed to change qp 13 source port
+failed to change qp 13 egress port
+qp index 14 , sport 57663
+failed to change qp 14 source port
+failed to change qp 14 egress port
+qp index 15 , sport 57804
+failed to change qp 15 source port
+failed to change qp 15 egress port
+ local address: LID 0000 QPN 0x159a PSN 0x8792c9 RKey 0x0044ad VAddr 0x007f9101fbb000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x159e PSN 0xad7f7f RKey 0x0044ad VAddr 0x007f9101fcb000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15a1 PSN 0xf0e45d RKey 0x0044ad VAddr 0x007f9101fdb000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15a3 PSN 0x9f68e8 RKey 0x0044ad VAddr 0x007f9101feb000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15a5 PSN 0x71d0db RKey 0x0044ad VAddr 0x007f9101ffb000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15a7 PSN 0x9704a1 RKey 0x0044ad VAddr 0x007f910200b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15aa PSN 0xcb5fec RKey 0x0044ad VAddr 0x007f910201b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15ac PSN 0x1b1b75 RKey 0x0044ad VAddr 0x007f910202b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15ae PSN 0xe0a875 RKey 0x0044ad VAddr 0x007f910203b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15b0 PSN 0xa35553 RKey 0x0044ad VAddr 0x007f910204b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15b2 PSN 0xc91bfb RKey 0x0044ad VAddr 0x007f910205b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15b4 PSN 0x632c72 RKey 0x0044ad VAddr 0x007f910206b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15b6 PSN 0x494676 RKey 0x0044ad VAddr 0x007f910207b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15b8 PSN 0x94edeb RKey 0x0044ad VAddr 0x007f910208b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15ba PSN 0x4df3cd RKey 0x0044ad VAddr 0x007f910209b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15bc PSN 0x80cc0d RKey 0x0044ad VAddr 0x007f91020ab000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x159b PSN 0xe9f095 RKey 0x0046ae VAddr 0x007f004170a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x159d PSN 0xe4b75b RKey 0x0046ae VAddr 0x007f004171a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x159f PSN 0x735509 RKey 0x0046ae VAddr 0x007f004172a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15a2 PSN 0xf3ea24 RKey 0x0046ae VAddr 0x007f004173a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15a4 PSN 0xd8bf67 RKey 0x0046ae VAddr 0x007f004174a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15a6 PSN 0xcc5e3d RKey 0x0046ae VAddr 0x007f004175a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15a9 PSN 0xd4af58 RKey 0x0046ae VAddr 0x007f004176a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15ab PSN 0xfcf471 RKey 0x0046ae VAddr 0x007f004177a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15ad PSN 0x4c73c1 RKey 0x0046ae VAddr 0x007f004178a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15af PSN 0x3f2caf RKey 0x0046ae VAddr 0x007f004179a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15b1 PSN 0x707627 RKey 0x0046ae VAddr 0x007f00417aa000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15b3 PSN 0x38192e RKey 0x0046ae VAddr 0x007f00417ba000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15b5 PSN 0xf2fa82 RKey 0x0046ae VAddr 0x007f00417ca000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15b7 PSN 0xa95f07 RKey 0x0046ae VAddr 0x007f00417da000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15b9 PSN 0x7144b9 RKey 0x0046ae VAddr 0x007f00417ea000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15bb PSN 0xce4889 RKey 0x0046ae VAddr 0x007f00417fa000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+---------------------------------------------------------------------------------------
+ #bytes     #iterations    BW peak[Gb/sec]    BW average[Gb/sec]   MsgRate[Mpps]
+
+
+
+client:
+[root@VM-0-4-tencentos ~]# cd /root/rocm_bandwidth_test-c-3000-6.3-V1.2.0/build/hyqual_v3.0.3/perf_hash_sport_bin
+[root@VM-0-4-tencentos perf_hash_sport_bin]# numactl --cpunodebind=0 --membind=0 ./ib_write_bw -d mlx5_bond_0 -x 3 -F --report_gbits -p 18500  -q 16 --run_infinitely 26.8.5.146
+Couldn't connect to 26.8.5.146:18500
+Unable to open file descriptor for socket connection Unable to init the socket connection
+[root@VM-0-4-tencentos perf_hash_sport_bin]# numactl --cpunodebind=0 --membind=0 ./ib_write_bw -d mlx5_bond_0 -x 3 -F --report_gbits -p 18500  -q 16 --run_infinitely 26.8.5.146
+---------------------------------------------------------------------------------------
+                    RDMA_Write BW Test
+ Dual-port       : OFF          Device         : mlx5_bond_0
+ Number of qps   : 16           Transport type : IB
+ Connection type : RC           Using SRQ      : OFF
+ PCIe relax order: ON
+ ibv_wr* API     : ON
+ TX depth        : 128
+ CQ Moderation   : 1
+ Mtu             : 4096[B]
+ Link type       : Ethernet
+ GID index       : 3
+ Max inline data : 0[B]
+ rdma_cm QPs     : OFF
+ Data ex. method : Ethernet
+---------------------------------------------------------------------------------------
+qp index 0 , sport 60000
+succeed to change qp 0 source port
+succeed to change qp 0 egress port
+qp index 1 , sport 60051
+succeed to change qp 1 source port
+succeed to change qp 1 egress port
+qp index 2 , sport 57663
+succeed to change qp 2 source port
+succeed to change qp 2 egress port
+qp index 3 , sport 57804
+succeed to change qp 3 source port
+succeed to change qp 3 egress port
+qp index 4 , sport 60000
+succeed to change qp 4 source port
+succeed to change qp 4 egress port
+qp index 5 , sport 60051
+succeed to change qp 5 source port
+succeed to change qp 5 egress port
+qp index 6 , sport 57663
+succeed to change qp 6 source port
+succeed to change qp 6 egress port
+qp index 7 , sport 57804
+succeed to change qp 7 source port
+succeed to change qp 7 egress port
+qp index 8 , sport 60000
+succeed to change qp 8 source port
+succeed to change qp 8 egress port
+qp index 9 , sport 60051
+succeed to change qp 9 source port
+succeed to change qp 9 egress port
+qp index 10 , sport 57663
+succeed to change qp 10 source port
+succeed to change qp 10 egress port
+qp index 11 , sport 57804
+succeed to change qp 11 source port
+succeed to change qp 11 egress port
+qp index 12 , sport 60000
+succeed to change qp 12 source port
+succeed to change qp 12 egress port
+qp index 13 , sport 60051
+succeed to change qp 13 source port
+succeed to change qp 13 egress port
+qp index 14 , sport 57663
+succeed to change qp 14 source port
+succeed to change qp 14 egress port
+qp index 15 , sport 57804
+succeed to change qp 15 source port
+succeed to change qp 15 egress port
+ local address: LID 0000 QPN 0x159b PSN 0xe9f095 RKey 0x0046ae VAddr 0x007f004170a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x159d PSN 0xe4b75b RKey 0x0046ae VAddr 0x007f004171a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x159f PSN 0x735509 RKey 0x0046ae VAddr 0x007f004172a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15a2 PSN 0xf3ea24 RKey 0x0046ae VAddr 0x007f004173a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15a4 PSN 0xd8bf67 RKey 0x0046ae VAddr 0x007f004174a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15a6 PSN 0xcc5e3d RKey 0x0046ae VAddr 0x007f004175a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15a9 PSN 0xd4af58 RKey 0x0046ae VAddr 0x007f004176a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15ab PSN 0xfcf471 RKey 0x0046ae VAddr 0x007f004177a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15ad PSN 0x4c73c1 RKey 0x0046ae VAddr 0x007f004178a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15af PSN 0x3f2caf RKey 0x0046ae VAddr 0x007f004179a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15b1 PSN 0x707627 RKey 0x0046ae VAddr 0x007f00417aa000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15b3 PSN 0x38192e RKey 0x0046ae VAddr 0x007f00417ba000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15b5 PSN 0xf2fa82 RKey 0x0046ae VAddr 0x007f00417ca000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15b7 PSN 0xa95f07 RKey 0x0046ae VAddr 0x007f00417da000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15b9 PSN 0x7144b9 RKey 0x0046ae VAddr 0x007f00417ea000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ local address: LID 0000 QPN 0x15bb PSN 0xce4889 RKey 0x0046ae VAddr 0x007f00417fa000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x159a PSN 0x8792c9 RKey 0x0044ad VAddr 0x007f9101fbb000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x159e PSN 0xad7f7f RKey 0x0044ad VAddr 0x007f9101fcb000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15a1 PSN 0xf0e45d RKey 0x0044ad VAddr 0x007f9101fdb000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15a3 PSN 0x9f68e8 RKey 0x0044ad VAddr 0x007f9101feb000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15a5 PSN 0x71d0db RKey 0x0044ad VAddr 0x007f9101ffb000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15a7 PSN 0x9704a1 RKey 0x0044ad VAddr 0x007f910200b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15aa PSN 0xcb5fec RKey 0x0044ad VAddr 0x007f910201b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15ac PSN 0x1b1b75 RKey 0x0044ad VAddr 0x007f910202b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15ae PSN 0xe0a875 RKey 0x0044ad VAddr 0x007f910203b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15b0 PSN 0xa35553 RKey 0x0044ad VAddr 0x007f910204b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15b2 PSN 0xc91bfb RKey 0x0044ad VAddr 0x007f910205b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15b4 PSN 0x632c72 RKey 0x0044ad VAddr 0x007f910206b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15b6 PSN 0x494676 RKey 0x0044ad VAddr 0x007f910207b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15b8 PSN 0x94edeb RKey 0x0044ad VAddr 0x007f910208b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15ba PSN 0x4df3cd RKey 0x0044ad VAddr 0x007f910209b000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+ remote address: LID 0000 QPN 0x15bc PSN 0x80cc0d RKey 0x0044ad VAddr 0x007f91020ab000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:26:08:05:146
+---------------------------------------------------------------------------------------
+ #bytes     #iterations    BW peak[Gb/sec]    BW average[Gb/sec]   MsgRate[Mpps]
+ 65536      4055394          0.00               425.11             0.810837
+ 65536      4001785          0.00               419.61             0.800346
+
+
+
+
