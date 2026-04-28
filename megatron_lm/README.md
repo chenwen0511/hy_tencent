@@ -181,3 +181,22 @@ torchrun \
 - 训练时长与保存：`--train-iters 1000`，`save/eval/exit interval` 均为 `5000`，本示例会在 `1000` iter 到达后退出，通常不会触发中途保存与评估。
 
 补充：脚本还支持 `32B/72B/A3B` 档位，切换时会自动调整 `TP/PP/CP` 与模型结构参数。
+
+### 19.10 常见报错记录：缩短序列后出现 NaN
+
+在将 `SEQ_LEN` 从 `32768` 降到 `1768` 后，训练不再 OOM，但出现如下报错：
+
+```text
+RuntimeError: Rank 3, node VM-0-4-tencentos, device 3, iteration 1:
+Unexpected result nan (message='found NaN in local forward loss calculation')
+```
+
+该报错含义：
+
+- 当前失败点不再是显存不足，而是第 1 个 iteration 前向 loss 已出现 `NaN`；
+- 报错由 `rerun_state_machine.validate_result` 主动拦截，属于数值稳定性问题。
+
+本次结论：
+
+- `SEQ_LEN=1768` 已绕过显存 OOM；
+- 但训练进入了 NaN 路径，需后续从数据样本、学习率/精度配置、初始化与算子稳定性继续排查。

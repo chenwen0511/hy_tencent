@@ -1,6 +1,6 @@
 # BW1000 环境安装记录（DTK + Docker）
 
-本文根据实际操作日志 `hy-smi.log` 整理，记录海光 BW1000 机器上 DTK 驱动与 Docker 相关环境的安装与验证过程。
+本文根据实际操作日志 `logs/hy-smi.log` 整理，记录海光 BW1000 机器上 DTK 驱动与 Docker 相关环境的安装与验证过程。
 
 ## 1. 安装目标
 
@@ -156,7 +156,7 @@ systemctl restart docker
 
 ## 12. 带宽测试（rocm-bandwidth-test）
 
-本节根据 `bandwidth.log` 整理。
+本节根据 `logs/bandwidth.log` 整理。
 
 ### 12.1 获取测试工具
 
@@ -215,7 +215,7 @@ source /opt/hyhal/env.sh
 
 ## 13. 微基准及算力测试（hyqual）
 
-本节根据 `hyqual.log`（命令：`./run 7`）整理。
+本节根据 `logs/hyqual.log`（命令：`./run 7`）整理。
 
 ### 13.1 测试环境识别
 
@@ -280,7 +280,7 @@ cd hyqual_v3.0.3
 
 ## 14. 两机 RDMA 极限带宽测试（ib_write_bw）
 
-本节依据 `BW1000.pdf` 的 RDMA 测试步骤与 `RDMA.log` 实测结果整理。
+本节依据 `BW1000.pdf` 的 RDMA 测试步骤与 `logs/RDMA.log` 实测结果整理。
 
 ### 14.1 测试命令
 

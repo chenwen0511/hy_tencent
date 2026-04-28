@@ -1,0 +1,38 @@
+集群组网信息（BW1000）
+
+1) 主节点（Master）
+- 公网 IP: 43.140.242.111
+- 内网 IP (eth0): 172.21.0.4
+
+2) RDMA/Bond 网络 IP（主节点已见）
+- bond0: 26.8.5.146
+- bond1: 26.8.5.162
+- bond2: 26.8.5.190
+- bond3: 26.8.5.186
+
+3) 双机 Megatron 启动约定
+- master_addr: 172.21.0.4
+- nnodes: 2
+- 主节点命令: bash start_qwen3.sh 8B 172.21.0.4 2 0
+- 从节点命令: bash start_qwen3.sh 8B 172.21.0.4 2 1
+
+4) Rank 对应关系（双机 8 卡）
+- node_rank=0（主节点）: global rank 0~7
+- node_rank=1（从节点）: global rank 8~15
+
+备注:
+- 以上为当前已确认信息；从节点 eth0 IP 未在本文件记录，待补充后可完善完整 rank->ip 矩阵。
+
+5) RDMA IP 用途说明（26.8.5.146/162/186/190）
+- 这组地址是 RDMA bond 网卡地址（数据面高速网络），主要用于高带宽、低时延的数据传输。
+- 常见用途：
+  - `ib_write_bw` 带宽测试（server/client 通过 bond IP 对打）
+  - `ib_send_lat` 延时测试
+  - 多 bond 并发压测（评估整机网络上限）
+  - 分布式训练/推理中做 NCCL/RCCL 网络优化
+- 与 `eth0` 区别：
+  - `eth0`（如 172.21.0.4）通常用于管理面/控制面通信（SSH、torchrun master_addr）
+  - `bond*`（26.8.5.x）通常用于数据面高速传输（RDMA 通道）
+- 实操建议：
+  - 先用 `eth0` 跑通分布式流程；
+  - 性能优化阶段再切到 RDMA 通道做压测与调优。
