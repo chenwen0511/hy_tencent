@@ -245,3 +245,84 @@ processor_type: <class 'transformers.models.qwen3_vl.processing_qwen3_vl.Qwen3VL
 - `llama-factory + Qwen2.5-VL-7B` 单机 8 卡训练链路已跑通；
 - 本次训练无 OOM/NaN 中断，最终成功产出模型与训练曲线；
 - 可在此基础上继续做参数调优与双机扩展验证。
+
+## 8) 重新拉取 LLaMA-Factory 并做兼容适配（实操记录）
+
+本节记录在容器内重拉上游 `LlamaFactory` 后，为适配当前运行环境所做的最小改动与依赖安装过程。
+
+### 8.1 重新获取代码并准备训练脚本
+
+在 `/workspace` 下执行：
+
+```bash
+git clone https://github.com/hiyouga/LlamaFactory.git
+cd /workspace/LlamaFactory
+git log
+```
+
+确认远端配置（实测）：
+
+```ini
+[remote "origin"]
+    url = https://github.com/hiyouga/LlamaFactory.git
+```
+
+随后拷贝本地启动脚本与配置：
+
+```bash
+cp ../llama-factory/start_qwen3_4b_vl.sh .
+cp ../llama-factory/examples/train_full/qwen3_vl_4b_full_sft.yaml examples/train_full/
+```
+
+### 8.2 代码兼容性修改（Python 版本/typing 相关）
+
+在新仓库内执行 `git diff`，本次主要改动如下。
+
+1) `src/llamafactory/data/data_utils.py`
+
+- 将 `from enum import StrEnum, unique` 调整为兼容写法：
+  - `from enum import unique`
+  - `try: from enum import StrEnum`
+  - `except ImportError: from backports.strenum import StrEnum`
+
+2) `src/llamafactory/extras/constants.py`
+
+- 同样将 `StrEnum` 改为 `try/except + backports.strenum` 方式，解决低版本 Python 无内置 `StrEnum` 的问题。
+
+3) `src/llamafactory/hparams/model_args.py`
+
+- `from typing import Any, Literal, Self`  
+  改为  
+  `from typing_extensions import Any, Literal, Self`
+
+4) `src/llamafactory/data/mm_plugin.py`
+
+- `typing` 相关类型引用切换到 `typing_extensions`：
+  - `TYPE_CHECKING, BinaryIO, Literal, NotRequired, Optional, TypedDict, Union`
+
+上述改动的目的：在当前环境下规避 `StrEnum` 与部分 typing 特性带来的导入兼容问题，使训练脚本能继续执行到后续阶段。
+
+### 8.3 依赖补齐（按实操历史）
+
+根据终端历史，执行过以下依赖安装与版本约束：
+
+```bash
+pip install backports.strenum
+pip install -U typing-extensions
+pip install 'transformers>=4.55.0,<5.2.0'
+pip install 'peft>=0.18.0,<0.18.1'
+pip install 'trl>=0.18.0,<0.24.0'
+```
+
+并多次通过以下命令回归验证：
+
+```bash
+bash start_qwen3_4b_vl.sh
+```
+
+### 8.4 当前结论
+
+- 新下载的 `LlamaFactory` 仓库已可用，且远端指向官方 `hiyouga/LlamaFactory`；
+- 已完成一轮面向当前容器环境的兼容性补丁（`StrEnum` / `typing_extensions`）；
+- 依赖已按日志做定向安装与版本约束；
+- 后续如切换 Python 版本（如 3.11+）或上游修复兼容问题，可考虑回退本地补丁，尽量贴近上游实现。
