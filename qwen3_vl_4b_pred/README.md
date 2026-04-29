@@ -149,3 +149,18 @@ PY
 - 当前镜像内 `vllm 0.9.2` 版本过低，暂不具备稳定支持 `Qwen3-VL-4B-Instruct` 的条件；
 - 如需继续推进服务化，需等待明确支持 `Qwen3-VL` 的适配镜像或更高版本的 `vllm` 方案。
 
+## 19. 训练环境镜像 tar 存放位置（63 服务器）
+
+由运行中容器 `commit` 后 `docker save` 导出的训练环境镜像已放在 **63 服务器** 以下路径（与根目录 `README.md` 中 `docker save -o` 流程一致）：
+
+- 路径：`/data2/stephen/03-images/qwen-train-20260429.tar`
+
+在目标机（已安装 Docker）上加载为本地镜像：
+
+```bash
+docker load -i /data2/stephen/03-images/qwen-train-20260429.tar
+docker images | head
+```
+
+加载后按实际镜像名与挂载需求 `docker run`（训练场景需保留如 `/data0`、`/cfs` 等数据盘挂载，见主 `README.md` 第 16 节）。
+

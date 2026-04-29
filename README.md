@@ -383,3 +383,153 @@ du -sh /data0/models/Qwen3-VL-4B-Instruct
 - 目录大小：`8.3G`；
 - 建议后续统一使用路径：`/data0/models/Qwen3-VL-4B-Instruct`。
 
+## 16. 将运行中容器固化为镜像（docker commit）
+
+本节记录：在训练镜像容器内装好依赖、改好代码后，把当前容器打成自定义镜像，便于下次一键拉起；并说明**哪些内容会进镜像、如何避免把模型权重打进镜像**。
+
+### 16.1 挂载与镜像体积的关系（必须先理解）
+
+`docker commit` **只会打包容器可写层里相对基础镜像新增的内容**，**不会包含 bind mount 指向宿主机目录里的文件**。
+
+例如某训练容器挂载为：
+
+- `/opt/hyhal`（只读）
+- `/etc/hfm`（只读）
+- `/cfs`、`/data0`（读写）
+
+则宿主机上 **`/data0`、`/cfs` 内的模型权重与大数据集不会进入 commit 后的镜像**。  
+若权重或大包下载在**未挂载路径**（常见如容器内 `/workspace`、`/root/.cache` 等），则会显著增大可写层与最终镜像。
+
+查看某容器的挂载：
+
+```bash
+docker inspect <容器名或ID> --format '{{json .Mounts}}' | python -m json.tool
+```
+
+### 16.2 查看可写层大小（commit 前自检）
+
+```bash
+docker ps -s
+```
+
+- **SIZE**（示例 `3.27GB`）：相对基础镜像，容器可写层累计大小（pip 包、缓存、容器内工程目录等），**不含** bind 挂载盘里的数据。
+- **virtual**：基础镜像与可写层合计的展示口径；同样**不含**挂载盘内模型文件。
+
+可写层过大时，先在容器内排查占空间目录：
+
+```bash
+docker exec -it <容器名> bash -lc "du -xh --max-depth=1 /workspace 2>/dev/null | sort -h"
+docker exec -it <容器名> bash -lc "du -xh --max-depth=1 /root 2>/dev/null | sort -h"
+```
+
+### 16.3 commit 前建议清理（减小镜像、按需执行）
+
+在确认不再需要下列内容后再删（避免误删唯一副本）：
+
+```bash
+docker exec -it <容器名> bash -lc "
+pip cache purge 2>/dev/null || true
+rm -rf /root/.cache/pip /root/.cache/huggingface /tmp/*
+"
+```
+
+可选：删除重复源码包、训练日志、checkpoint 目录（若已在外部磁盘保留）：
+
+```bash
+# 示例路径，按实际仓库位置调整
+rm -f /workspace/LlamaFactory.tgz
+rm -rf /workspace/LlamaFactory/saves/*
+rm -f /workspace/LlamaFactory/*.log
+```
+
+长期建议：**权重与数据集固定放在 `/data0` 或 `/cfs`**（挂载盘），镜像只固化环境与 Python 依赖。
+
+### 16.4 将容器打成新镜像
+
+容器须处于运行或停止状态均可 commit；下面以容器名 `qwen` 为例：
+
+```bash
+docker commit -a "your_name" -m "qwen train env with llamafactory" qwen hy_tencent/qwen-train:20260429
+docker images | grep qwen-train
+```
+
+### 16.5 导出 / 导入镜像（备份或迁移）
+
+推荐：`docker save -o` 直接写出单个 tar 文件（无需管道）：
+
+```bash
+docker save -o qwen-train-20260429.tar hy_tencent/qwen-train:20260429
+```
+
+在目标机器导入：
+
+```bash
+docker load -i qwen-train-20260429.tar
+```
+
+若需减小传输体积，可先 `save -o` 再对 tar 做 `gzip`（得到 `.tar.gz`）：
+
+```bash
+docker save -o qwen-train-20260429.tar hy_tencent/qwen-train:20260429
+gzip -f qwen-train-20260429.tar
+# 得到 qwen-train-20260429.tar.gz
+```
+
+目标机加载压缩包：
+
+```bash
+gunzip -c qwen-train-20260429.tar.gz | docker load
+```
+
+### 16.5.1 一键：commit + `save -o`（可复制）
+
+按需修改容器名、镜像名与输出路径：
+
+```bash
+CTR=qwen
+IMG=hy_tencent/qwen-train:20260429
+OUT=./qwen-train-20260429.tar
+
+docker commit -a "$(whoami)" -m "snapshot from ${CTR}" "${CTR}" "${IMG}"
+docker save -o "${OUT}" "${IMG}"
+ls -lh "${OUT}"
+echo "完成：${OUT}（配合 docker load -i 导入）"
+```
+
+### 16.6 使用新镜像启动容器（需保留原挂载）
+
+启动时必须继续挂载 **`/data0`、`/cfs` 等**，否则训练脚本里指向这些路径的权重会不存在：
+
+```bash
+docker run -dit \
+  --network=host \
+  --name=qwen-from-image \
+  --privileged \
+  --device=/dev/kfd \
+  --device=/dev/dri \
+  --ipc=host \
+  --shm-size=128G \
+  --group-add video \
+  --cap-add=SYS_PTRACE \
+  --security-opt seccomp=unconfined \
+  -u root \
+  --ulimit stack=-1:-1 \
+  --ulimit memlock=-1:-1 \
+  -v /opt/hyhal:/opt/hyhal:ro \
+  -v /etc/hfm:/etc/hfm:ro \
+  -v /cfs:/cfs \
+  -v /data0:/data0 \
+  hy_tencent/qwen-train:20260429
+```
+
+进入容器：
+
+```bash
+docker exec -it qwen-from-image bash
+```
+
+### 16.7 小结
+
+- **模型与大数据放在挂载盘**，镜像只固化环境与依赖，体积可控、更新也方便。
+- commit 前看 **`docker ps -s`** 与 **`docker inspect ... Mounts`**，避免把未挂载路径上的大文件固化进镜像。
+
