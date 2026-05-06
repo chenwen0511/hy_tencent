@@ -1,0 +1,71 @@
+
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# cp -p vector_add.cu  vector_add_hip.cu
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# vi vector_add_hip.cu
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# which nvcc
+/opt/dtk/cuda/cuda/bin/nvcc
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# nvcc -O2 -std=c++14 -o vector_add vector_add.cu
+vector_add.cu:26:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+vector_add.cu:26:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+vector_add.cu:26:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+1 warning generated when compiling for gfx926.
+1 warning generated when compiling for gfx928.
+1 warning generated when compiling for gfx906.
+vector_add.cu:26:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+1 warning generated when compiling for gfx936.
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# ls -la
+总计 60
+drwxr-xr-x 2 root root  4096 May  6 10:17 .
+drwxr-xr-x 3 root root  4096 May  6 10:03 ..
+-rw-r--r-- 1 root root  2294 May  6 10:03 README.md
+-rwxr-xr-x 1 root root 39256 May  6 10:17 vector_add
+-rw-r--r-- 1 root root  3883 May  6 10:03 vector_add.cu
+-rw-r--r-- 1 root root  3365 May  6 10:16 vector_add_hip.cu
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# ./vector_add ^C
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# ./vector_add
+CUDA Driver API 版本: 12060, Runtime 版本: 60325521
+当前设备: BW1000_H gfx936:sramecc+:xnack- | Compute Capability: 7.5
+算子执行成功！所有结果均为 3.0
+root@VM-0-4-tencentos:~/03-code/cuda_cpp#
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# hipcc -O2 -std=c++14 -o vector_add_hip vector_add_hip.cu
+vector_add_hip.cu:27:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+vector_add_hip.cu:27:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+vector_add_hip.cu:27:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+1 warning generated when compiling for gfx906.
+1 warning generated when compiling for gfx928.
+1 warning generated when compiling for gfx926.
+vector_add_hip.cu:27:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+1 warning generated when compiling for gfx936.
+vector_add_hip.cu:27:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+1 warning generated when compiling for host.
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# ./vector_add_hip
+HIP Runtime 版本: 60325521
+当前设备: BW1000_H | HIP 6.3
+算子执行成功！所有结果均为 3.0（HIP 路径）
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# source /usr/local/bin/fastpt -E
+current_dtk_version: 25044
+WARNING: The current dtk version 25044, is inconsistent with the require dtk version 25042
+Success: The current torch version 2.5 matches the required version 2.5.
+Torch version is correct: 2.5
+torch version check success!
+torch mocker so 已存在
+current_dtk_version: 25044
+Default LD_LIBRARY_PATH: /opt/dtk/cuda/cuda-12/lib64/
+root@VM-0-4-tencentos:~/03-code/cuda_cpp#

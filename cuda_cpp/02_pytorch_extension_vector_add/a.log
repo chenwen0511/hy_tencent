@@ -1,0 +1,60 @@
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# source /usr/local/bin/fastpt -C
+current_dtk_version: 25044
+WARNING: The current dtk version 25044, is inconsistent with the require dtk version 25042
+Success: The current torch version 2.5 matches the required version 2.5.
+Torch version is correct: 2.5
+torch version check success!
+USE_FASTPT_CUDA is set, and CUDA environment is loaded
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# python setup.py build install
+No ROCm runtime is found, using ROCM_HOME='/opt/dtk'
+running build
+running build_ext
+/usr/local/lib/python3.10/dist-packages/torch/utils/cpp_extension.py:437: UserWarning: There are no x86_64-linux-gnu-g++ version bounds defined for CUDA version 12.6
+  warnings.warn(f'There are no {compiler_name} version bounds defined for CUDA version {cuda_str_version}')
+building 'custom_ops' extension
+creating /root/03-code/cuda_cpp/build
+creating /root/03-code/cuda_cpp/build/temp.linux-x86_64-3.10
+creating /root/03-code/cuda_cpp/build/temp.linux-x86_64-3.10/02_pytorch_extension_vector_add
+Emitting ninja build file /root/03-code/cuda_cpp/build/temp.linux-x86_64-3.10/build.ninja...
+Compiling objects...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+[1/1] /opt/dtk/cuda/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output /root/03-code/cuda_cpp/build/temp.linux-x86_64-3.10/02_pytorch_extension_vector_add/vector_add_pt.o.d -I/usr/local/lib/python3.10/dist-packages/torch/include -I/usr/local/lib/python3.10/dist-packages/torch/include/torch/csrc/api/include -I/usr/local/lib/python3.10/dist-packages/torch/include/TH -I/usr/local/lib/python3.10/dist-packages/torch/include/THC -I/opt/dtk/cuda/cuda/include -I/usr/include/python3.10 -c -c /root/03-code/cuda_cpp/02_pytorch_extension_vector_add/vector_add_pt.cu -o /root/03-code/cuda_cpp/build/temp.linux-x86_64-3.10/02_pytorch_extension_vector_add/vector_add_pt.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options -fPIC -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1014"' -DTORCH_EXTENSION_NAME=custom_ops -D_GLIBCXX_USE_CXX11_ABI=1 -gencode=arch=compute_90,code=sm_90 -std=c++17
+
+
+  long compile log
+
+
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# source /usr/local/bin/fastpt -E
+current_dtk_version: 25044
+WARNING: The current dtk version 25044, is inconsistent with the require dtk version 25042
+Success: The current torch version 2.5 matches the required version 2.5.
+Torch version is correct: 2.5
+torch version check success!
+torch mocker so 已存在
+current_dtk_version: 25044
+Default LD_LIBRARY_PATH: /opt/dtk/cuda/cuda-12/lib64/
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# ls -la
+总计 28
+drwxr-xr-x 6 root root 4096 May  6 10:30 .
+drwxr-xr-x 3 root root 4096 May  6 10:03 ..
+drwxr-xr-x 2 root root 4096 May  6 10:26 01-vector_add
+drwxr-xr-x 2 root root 4096 May  6 10:26 02_pytorch_extension_vector_add
+drwxr-xr-x 4 root root 4096 May  6 10:30 build
+drwxr-xr-x 2 root root 4096 May  6 10:30 custom_ops.egg-info
+-rw-r--r-- 1 root root  327 May  6 10:28 setup.py
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# cd 02_pytorch_extension_vector_add/
+root@VM-0-4-tencentos:~/03-code/cuda_cpp/02_pytorch_extension_vector_add# ls -la
+总计 16
+drwxr-xr-x 2 root root 4096 May  6 10:26 .
+drwxr-xr-x 6 root root 4096 May  6 10:30 ..
+-rw-r--r-- 1 root root  501 May  6 10:26 test.py
+-rw-r--r-- 1 root root 1577 May  6 10:26 vector_add_pt.cu
+root@VM-0-4-tencentos:~/03-code/cuda_cpp/02_pytorch_extension_vector_add# python test.py
+初始化 GPU Tensors...
+调用自定义 CUDA 算子...
+C 的前 5 个元素: tensor([3., 3., 3., 3., 3.], device='cuda:0')
+结果是否全部正确 (期望值为3.0)? True
+root@VM-0-4-tencentos:~/03-code/cuda_cpp/02_pytorch_extension_vector_add#
+
+
+
