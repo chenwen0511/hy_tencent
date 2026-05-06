@@ -1,6 +1,6 @@
 # 海光 BW1000 上验证 GPU C++ / PyTorch 扩展
 
-本目录用于在海光 DCU（BW1000 等）配套软件栈上做多档验证：**①** 独立 **`nvcc`/`hipcc`**（**`01-vector_add/`**）；**②** **PyTorch `CUDAExtension`**（**`02_pytorch_extension_vector_add/`**，日志 **`a.log`**）；**③** **Triton FlashAttention** 对照 **`torch.nn.functional.scaled_dot_product_attention`**（**`07_triton_flash_attention/`**）。说明与命令与《BW1000.pdf》**6.1.3 节 MapTRV2**、以及仓库内《海光BW1000测试指导文档》中 **MapTRV2** 小节的**兼容环境切换**一致。
+本目录用于在海光 DCU（BW1000 等）配套软件栈上做多档验证：**①** 独立 **`nvcc`/`hipcc`**（**`01-vector_add/`**）；**②** **PyTorch `CUDAExtension`**（**`02_pytorch_extension_vector_add/`**，日志 **`a.log`**）；**③** **Triton FlashAttention** 对照 **`torch.nn.functional.scaled_dot_product_attention`**（**`07_triton_flash_attention/`**）；**④** **Toy FlashAttention CUDA/HIP 版本**正确性验证（**`08_toy_flash_attention/`**，日志 **`a.log`**）。说明与命令与《BW1000.pdf》**6.1.3 节 MapTRV2**、以及仓库内《海光BW1000测试指导文档》中 **MapTRV2** 小节的**兼容环境切换**一致。
 
 ## 0. Docker 启动（容器名 `cuda_val`，挂 `/root`）
 
@@ -73,6 +73,7 @@ source /usr/local/bin/fastpt -E
 - **`01-vector_add/`**：独立可执行程序（`vector_add.cu` / `vector_add_hip.cu`）。
 - **`02_pytorch_extension_vector_add/`**：PyTorch 自定义算子（由仓库根下 **`cuda_cpp/setup.py`** 中的 `CUDAExtension('custom_ops', …)` 编译）。
 - **`07_triton_flash_attention/`**：Triton 版 FlashAttention 与 PyTorch 标准 Attention 的耗时 / 正确性对比（**`test_triton_flash_warmup.py`**）。
+- **`08_toy_flash_attention/`**：Toy FlashAttention（在线 softmax 逻辑）正确性验证（**`test_toy_flash.py`**）。
 
 ### 2.1（验证 ①）独立 CUDA / HIP（`01-vector_add/`）
 
@@ -142,6 +143,28 @@ python test_triton_flash_warmup.py
 ```
 
 脚本会构造 Float16 张量（示例中为 **序列长度 4096**、**Head 维度 32**），对比 **PyTorch 标准 Attention** 与 **Triton FlashAttention** 的耗时，并校验数值一致性；**首轮**通常包含 **Triton kernel JIT 编译**，耗时明显高于 **预热后**。
+
+### 2.4（验证 ④）Toy FlashAttention（`08_toy_flash_attention/`）
+
+在 **`cuda_cpp` 顶层**先完成扩展编译，再进入 `08` 目录执行测试：
+
+```bash
+cd ~/03-code/cuda_cpp
+source /usr/local/bin/fastpt -C
+python setup.py build install
+source /usr/local/bin/fastpt -E
+
+cd 08_toy_flash_attention
+python test_toy_flash.py
+```
+
+该测试聚焦 **online softmax 在线更新逻辑** 的正确性。若看到类似：
+
+```text
+Launch params ... are larger than launch bounds (256) ...
+```
+
+这属于内核 launch 配置告警，不等价于结果错误；应以最终的数值一致性输出（`✅ 结果是否正确? 是`）作为通过依据。
 
 ## 3. 实测运行记录
 
@@ -230,6 +253,24 @@ C 的前 5 个元素: tensor([3., 3., 3., 3., 3.], device='cuda:0')
 
 **结论（验证 ③）**：在本次配置（**seq=4096**、**head_dim=32**、Float16）下，**数值与 PyTorch 标准 Attention 一致**（**「结果是否正确? 是」**）。耗时方面：**首轮** Triton 远快于未细分是否为 compile 的 PyTorch 计时分支（脚本打印 **477 ms vs 2673 ms**）；**预热后**二者均在亚毫秒量级，Triton **0.16 ms** 仍低于 PyTorch **0.42 ms**（均以脚本打印为准，随负载与其它进程波动）。
 
+### 3.7 验证 ④（摘录自 `08_toy_flash_attention/a.log`）
+
+日志显示先前有一次扩展编译失败（`RuntimeError: Error compiling objects for extension`），随后在执行 **`source /usr/local/bin/fastpt -C`** 后重新 `python setup.py build install` 成功；再切回 **`fastpt -E`** 并运行 `08_toy_flash_attention/test_toy_flash.py`。
+
+测试输出核心片段如下：
+
+```text
+初始化张量... 序列长度: 2048, 维度: 32
+计算 PyTorch 标准 Attention...
+计算自定义 Toy FlashAttention...
+Launch params ... are larger than launch bounds (256) ...
+
+✅ 结果是否正确? 是
+太棒了！你的 C++ Online Softmax 在线更新逻辑与标准全局 Softmax 结果完全一致！
+```
+
+**结论（验证 ④）**：在 BW1000 + DTK 环境下，`toy_flash_attn` 的 **online softmax 数值正确性验证通过**；即便存在 launch bounds 告警，最终结果仍与 PyTorch 标准 Attention 一致（测试判定为 `是`）。
+
 ## 4. 排障简要说明
 
 - **`fastpt -C` 打印 Success 但 `nvcc` 仍没有**：多半是没 **`source`**；请退出重试 `source /usr/local/bin/fastpt -C`，再 `which nvcc`。实测就绪环境下 **`nvcc` 路径可为** `/opt/dtk/cuda/cuda/bin/nvcc`（见 §3 / `01-vector_add/cmd.log`、`02_pytorch_extension_vector_add/a.log`）。
@@ -237,5 +278,6 @@ C 的前 5 个元素: tensor([3., 3., 3., 3., 3.], device='cuda:0')
 - **`vector_add.cu` 不在当前目录**：先 `cd cuda_cpp/01-vector_add`（或本 README §2.1 路径）再编译。
 - **PyTorch 扩展**：必须在 **`cuda_cpp` 顶层**（存在 **`setup.py`**）执行 **`python setup.py build install`**，再到 **`02_pytorch_extension_vector_add`** 运行 **`test.py`**。
 - **Triton 脚本**：在 **`07_triton_flash_attention/`** 运行；若 **`triton` / `cuda` 导入失败**，检查 **`fastpt`**、 **`pip show triton`** 及 **`HIP_VISIBLE_DEVICES`/`CUDA_VISIBLE_DEVICES`**（与现场 DCU 规范一致）。**首轮耗时含 JIT**，勿与预热后直接对比。
+- **Toy FlashAttention**：若出现 `Launch params ... larger than launch bounds`，优先确认测试末尾是否为 **`✅ 结果是否正确? 是`**；如需消除告警，可按提示补 `__launch_bounds__` 或调整 block/thread 配置后重编译。
 - **编译通过但运行报错**：确认对 `/dev/kfd`、`/dev/dri` 等有权限（Docker 需 `--device=/dev/kfd --device=/dev/dri` 等）。
 - Docker、数据挂载与训练脚本等以 **BW1000.pdf §6.1.3** / 《海光BW1000测试指导文档》为准；上文 **§0** 给出与本验证用途对齐的 `docker run`（`cuda_val` + `/root`）。
