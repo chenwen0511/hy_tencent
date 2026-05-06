@@ -56,6 +56,16 @@ source /usr/local/bin/fastpt -E
 
 若系统未安装 `fastpt` 或路径不同，以现场《BW1000.pdf》/《海光BW1000测试指导文档》**6.1.3 MapTRV2** 原文为准。
 
+### 1.1 为什么要 `fastpt -C`，编译完为什么建议 `fastpt -E`
+
+`fastpt` 可理解为海光/DTK 环境的**模式切换器**：
+
+- **`source /usr/local/bin/fastpt -C`**：切到 **CUDA 兼容编译态**（常见表现：`USE_FASTPT_CUDA is set`，`nvcc` 与兼容库路径可见），适合执行 `nvcc`、`python setup.py build install` 等构建动作。
+- **`source /usr/local/bin/fastpt -E`**：切回 **DTK 默认执行态**（例如日志里可见 `Default LD_LIBRARY_PATH: /opt/dtk/cuda/cuda-12/lib64/`），适合后续训练/推理。
+
+如果编译后长期不切回 `-E`，不一定立刻报错，但会增加“环境脏状态”风险：后续 shell 继续沿用编译态的 `PATH/LD_LIBRARY_PATH`，可能导致库优先级与预期不一致，出现同机不同 shell 行为差异、排障困难。  
+**推荐习惯**：`-C`（构建前）→ 构建/测试 → `-E`（收尾）。
+
 ## 2. 编译并运行
 
 ### 2.0 目录说明
