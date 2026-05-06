@@ -1,0 +1,55 @@
+    _write_ninja_file_and_compile_objects(
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/cpp_extension.py", line 1872, in _write_ninja_file_and_compile_objects
+    _run_ninja_build(
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/cpp_extension.py", line 2208, in _run_ninja_build
+    raise RuntimeError(message) from e
+RuntimeError: Error compiling objects for extension
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# source /usr/local/bin/fastpt -C
+current_dtk_version: 25044
+WARNING: The current dtk version 25044, is inconsistent with the require dtk version 25042
+Success: The current torch version 2.5 matches the required version 2.5.
+Torch version is correct: 2.5
+torch version check success!
+USE_FASTPT_CUDA is set, and CUDA environment is loaded
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# python setup.py build install
+No ROCm runtime is found, using ROCM_HOME='/opt/dtk'
+running build
+running build_ext
+/usr/local/lib/python3.10/dist-packages/torch/utils/cpp_extension.py:437: UserWarning: There are no x86_64-linux-gnu-g++ version bounds defined for CUDA version 12.6
+  warnings.warn(f'There are no {compiler_name} version bounds defined for CUDA version {cuda_str_version}')
+building 'custom_ops' extension
+Emitting ninja build file /root/03-code/cuda_cpp/build/temp.linux-x86_64-3.10/build.ninja...
+
+reading manifest file 'custom_ops.egg-info/SOURCES.txt'
+writing manifest file 'custom_ops.egg-info/SOURCES.txt'
+removing '/usr/local/lib/python3.10/dist-packages/custom_ops-0.0.0-py3.10.egg-info' (and everything under it)
+Copying custom_ops.egg-info to /usr/local/lib/python3.10/dist-packages/custom_ops-0.0.0-py3.10.egg-info
+running install_scripts
+root@VM-0-4-tencentos:~/03-code/cuda_cpp#
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# source /usr/local/bin/fastpt -E
+current_dtk_version: 25044
+WARNING: The current dtk version 25044, is inconsistent with the require dtk version 25042
+Success: The current torch version 2.5 matches the required version 2.5.
+Torch version is correct: 2.5
+torch version check success!
+torch mocker so 已存在
+current_dtk_version: 25044
+Default LD_LIBRARY_PATH: /opt/dtk/cuda/cuda-12/lib64/
+root@VM-0-4-tencentos:~/03-code/cuda_cpp# cd 08_toy_flash_attention/
+root@VM-0-4-tencentos:~/03-code/cuda_cpp/08_toy_flash_attention# ls -la
+总计 28
+drwxr-xr-x 2 root root 4096 May  6 11:09 .
+drwxr-xr-x 8 root root 4096 May  6 11:09 ..
+-rw-r--r-- 1 root root 1665 May  6 11:07 test_toy_flash.py
+-rw-r--r-- 1 root root 4250 May  6 11:07 toy_flash_attn.cu
+-rw-r--r-- 1 root root 4377 May  6 11:09 toy_flash_attn.hip
+root@VM-0-4-tencentos:~/03-code/cuda_cpp/08_toy_flash_attention# python test_toy_flash.py
+初始化张量... 序列长度: 2048, 维度: 32
+计算 PyTorch 标准 Attention...
+计算自定义 Toy FlashAttention...
+Launch params (32, 16, 1) are larger than launch bounds (256) for kernel _Z30flash_attention_forward_kernelPKfS0_S0_Pfi please add __launch_bounds__ to kernel define or use --gpu-max-threads-per-block recompile program !
+
+✅ 结果是否正确? 是
+太棒了！你的 C++ Online Softmax 在线更新逻辑与标准全局 Softmax 结果完全一致！
+这意味着你的代码真正在没有生成完整 NxN 矩阵的情况下，算出了正确的注意力机制！
+root@VM-0-4-tencentos:~/03-code/cuda_cpp/08_toy_flash_attention#
